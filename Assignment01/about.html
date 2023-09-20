@@ -11,9 +11,50 @@
             padding-top: 15px;
             text-align: center;
         }
+
+        h2{
+            text-decoration: underline;
+            font-size: x-large;
+        }
+
+        h3{
+            font-size: large;
+        }
+
+        p{
+            font-size: medium;
+        }
+
+        footer{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 1.5em;   /* Height of the footer */
+            background: lightgray;
+        }
+
+        .column {
+            float: left;
+            width: 20%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        .nav-item{
+            font-size: 20px;
+            color: black;
+            font-weight: bold;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
         #publicationNote{
             font-size: small;
             font-style: italic;
+            font-weight: bold;
+            text-align: center;
+            color: black;
         }
     </style>
 
@@ -43,13 +84,25 @@
     </nav>
 
     <h1>COM S 319 - Construction of User Interfaces</h1>
-    <h2>Students</h2>
-    <h3>Aren Ashlock</h3>
-    <p>Email: aashlock@iastate.edu</p>
-    <h3>Eli Newland</h3>
-    <p>Email: newland2@iastate.edu</p>
-    <h2>Instructor</h2>
-    <h3>Abraham Aldaco</h3>
-    <p id="publicationNote">Published: September 21, 2023</p>
+    <div class="row">
+        <div class="column">
+            <h2>Student #1</h2>
+            <h3>Aren Ashlock</h3>
+            <p>Email: aashlock@iastate.edu</p>
+        </div>
+        <div class="column">
+            <h2>Student #2</h2>
+            <h3>Eli Newland</h3>
+            <p>Email: newland2@iastate.edu</p>
+        </div>
+        <div class="column">
+            <h2>Instructor</h2>
+            <h3>Abraham Aldaco</h3>
+        </div>
+    </div>
+
+    <footer>
+        <p id="publicationNote">Published: September 21, 2023</p>
+    </footer>
 </body>
 </html>
