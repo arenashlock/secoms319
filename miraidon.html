@@ -22,12 +22,45 @@
             font-size: 12px;
         }
 
+        h3{
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        p{
+            font-style: italic;
+            text-align: center;
+            margin: 5px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
         .nav-item{
             font-size: 20px;
             color: black;
             font-weight: bold;
             margin-left: 10px;
             margin-right: 10px;
+        }
+
+        #decklist-picture{
+            float: left;
+            max-width: 73%;
+            margin: 10px;
+            margin-right: 5px;
+            border: 5px solid black;
+        }
+
+        #selected-card{
+            float: left;
+            max-width: 23%;
+            margin: 10px;
+            margin-right: 5px;
+        }
+
+        #selected-card-picture{
+            width: 100%;
+            border: 5px solid black;
         }
 
         .Pokemon-card-picture{
@@ -65,8 +98,15 @@
         </div>
     </nav>
 
+    <img id="decklist-picture" src="./myotherimages/miraidon_decklist.jpg">
+    
+    <div id="selected-card">
+        <img style="width: 100%;" src="./myotherimages/pokeball.png">
+        <p>Choose a card below to understand why it is played!</p>
+    </div>
+
     <div class="album py-5 bg-body-tertiary">
-        <div class="container">
+        <div style="display: inline-block;" class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3" id="cards-in-deck">
             </div>
         </div>
