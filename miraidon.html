@@ -11,12 +11,28 @@
             background-color: #F8F9FA;
         }
 
+        h1{
+            text-align: center;
+            font-size: 24px;
+        }
+
+        h2{
+            text-align: center;
+            font-style: italic;
+            font-size: 12px;
+        }
+
         .nav-item{
             font-size: 20px;
             color: black;
             font-weight: bold;
             margin-left: 10px;
             margin-right: 10px;
+        }
+
+        .Pokemon-card-picture{
+            margin: 10px;
+            border: 5px solid black;
         }
     </style>
     
@@ -49,6 +65,13 @@
         </div>
     </nav>
 
-    <p>Testing...</p>
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3" id="cards-in-deck">
+            </div>
+        </div>
+    </div>
+
+    <script src="./miraidon.js"></script>
 </body>
 </html>
