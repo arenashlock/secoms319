@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import items from "./selected_products.json"
+import items from "./pokemon_cards.json"
 
 const Shop = () => {
     const [cart, setCart] = useState([]);
