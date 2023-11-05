@@ -1,0 +1,134 @@
+{
+    "gardevoirCards" : [
+        {
+            "cardID" : "SV01-086",
+            "cardName" : "Gardevoir ex",
+            "set" : "SV01",
+            "collectionNumber" : "086",
+            "purpose" : "Gardevoir ex is mainly used for it's insanely good ability that accelerates extra energies each turn. It can also serve as a tank against decks that deal little damage!",
+            "cardImage" : "./images/gardevoir/gardevoir_ex.jpg"
+        },
+        {
+            "cardID" : "SWSH06-061",
+            "cardName" : "Gardevoir",
+            "set" : "SWSH06",
+            "collectionNumber" : "061",
+            "purpose" : "Gardevoir's ability is extremely good for possibly powering up additional energy, but especially for drawing cards. It is also one of the best attackers in the deck since it is only worth 1 prize card.",
+            "cardImage" : "./images/gardevoir/gardevoir.jpg"
+        },
+        {
+            "cardID" : "CLB-016",
+            "cardName" : "Zacian V",
+            "set" : "CLB",
+            "collectionNumber" : "016",
+            "purpose" : "Zacian V's ability can help get early energy acceleration. Otherwise, this card is a great attacker early in the game.",
+            "cardImage" : "./images/gardevoir/zacian_v.jpg"
+        },
+        {
+            "cardID" : "CLB-011",
+            "cardName" : "Mew",
+            "set" : "CLB",
+            "collectionNumber" : "011",
+            "purpose" : "Mew is a card you rely on in the early turns to set up. Afterwards, it just clogs the bench serving very little purpose most of the time.",
+            "cardImage" : "./images/gardevoir/mew.jpg"
+        },
+        {
+            "cardID" : "SWSH10-046",
+            "cardName" : "Radiant Greninja",
+            "set" : "SWSH10",
+            "collectionNumber" : "046",
+            "purpose" : "Radiant Greninja is primarily used to draw extra cards each turn while discarding energies that can be powered up later with Gardevoir ex's ability.",
+            "cardImage" : "./images/gardevoir/radiant_greninja.jpg"
+        },
+        {
+            "cardID" : "SWSH11-074",
+            "cardName" : "Cresselia",
+            "set" : "SWSH11",
+            "collectionNumber" : "074",
+            "purpose" : "Cresselia is very situational. It's attack is great more specifically due to the fact that it allows you to acclerate energies from Gardevoir ex's ability and then heal those Pokemon. It's a great option against Lost Box!",
+            "cardImage" : "./images/gardevoir/cresselia.jpg"
+        },
+        {
+            "cardID" : "SWSH09-041",
+            "cardName" : "Manaphy",
+            "set" : "SWSH09",
+            "collectionNumber" : "041",
+            "purpose" : "Manaphy will not ALWAYS be used in every matchup. It's sole purpose is to prevent the opposing player's Radiant Greninja from taking 2 prizes and knocking out 2 Ralts early.",
+            "cardImage" : "./images/gardevoir/manaphy.jpg"
+        },
+        {
+            "cardID" : "SV02-192",
+            "cardName" : "Reversal Energy",
+            "set" : "SV02",
+            "collectionNumber" : "192",
+            "purpose" : "Reversal Energy is a situational card that pairs well with Gardevoir as an attacker. If you're behind on prize cards, you can add 90 damage to Gardevoir's already powerful attack. This can swing the game!",
+            "cardImage" : "./images/gardevoir/reversal_energy.jpg"
+        }
+    ],
+    "miraidonCards" : [
+        {
+            "cardID" : "SV01-081",
+            "cardName" : "Miraidon ex",
+            "set" : "SV01",
+            "collectionNumber" : "081",
+            "purpose" : "Miraidon ex is a Pokemon you really want to see in your early turns. It's ability helps you get out all your Pokemon.",
+            "cardImage" : "./images/miraidon/miraidon_ex.jpg"
+        },
+        {
+            "cardID" : "SWSH09-048",
+            "cardName" : "Raikou V",
+            "set" : "SWSH09",
+            "collectionNumber" : "048",
+            "purpose" : "Raikou V is one of the best Pokemon in the deck. It's ability lets you draw an extra card, and it's attack only takes 2 energy to deal powerful amounts of damage early.",
+            "cardImage" : "./images/miraidon/raikou_v.jpg"
+        },
+        {
+            "cardID" : "SWSH09-045",
+            "cardName" : "Raichu V",
+            "set" : "SWSH09",
+            "collectionNumber" : "045",
+            "purpose" : "Raichu V is your explosive, game-changing attacker. You can power up the attack over multiple turns and in a single attack, can knock out high-HP Pokemon and leave your opponent speechless!",
+            "cardImage" : "./images/miraidon/raichu_v.jpg"
+        },
+        {
+            "cardID" : "SWSH07-055",
+            "cardName" : "Flaaffy",
+            "set" : "SWSH07",
+            "collectionNumber" : "055",
+            "purpose" : "Flaaffy seems like an innocent Pokemon, but it's vital to the deck's function. It attaches an extra energy every turn, which powrs up Raichu V's attack and helps recover energies in the turns following.",
+            "cardImage" : "./images/miraidon/flaaffy.jpg"
+        },
+        {
+            "cardID" : "CLB-007",
+            "cardName" : "Flying Pikachu VMAX",
+            "set" : "CLB",
+            "collectionNumber" : "007",
+            "purpose" : "Flying Pikachu VMAX serves 2 good purposes. First, it has free retreat and high-HP, so it gives a pivot option that is hard to knock out. Secondly, it can lock your opponent out of the game if they only play basic Pokemon!",
+            "cardImage" : "./images/miraidon/flying_pikachu_vmax.jpg"
+        },
+        {
+            "cardID" : "SV01-170",
+            "cardName" : "Electric Generator",
+            "set" : "SV01",
+            "collectionNumber" : "170",
+            "purpose" : "Electric Generator is a powerful item card that helps you set up your attackers. It's risky since the less energies you have in your deck, the lower odds you have of hitting them. However, the reward is greater than the risk.",
+            "cardImage" : "./images/miraidon/electric_generator.jpg"
+        },
+        {
+            "cardID" : "SWSH12-156",
+            "cardName" : "Forest Seal Stone",
+            "set" : "SWSH12",
+            "collectionNumber" : "156",
+            "purpose" : "Forest Seal Stone is a crucial card in many situations. If you are missing a piece to an important combo, you can search it out once a game. Otherwise, if you are drawing poorly at any point, you can search your deck for a card to help you!",
+            "cardImage" : "./images/miraidon/forest_seal_stone.jpg"
+        },
+        {
+            "cardID" : "SWSH06-148",
+            "cardName" : "Path to the Peak",
+            "set" : "SWSH06",
+            "collectionNumber" : "148",
+            "purpose" : "Path to the Peak seems ironic given how many abilities you rely on. However, you won't use many of them beyond the first turn, so this can disrupt your opponent enough to put you at an advantage.",
+            "cardImage" : "./images/miraidon/path_to_the_peak.jpg"
+        }
+    ]
+}
