@@ -5,32 +5,28 @@ import items from "./pokemon_cards.json"
 const Shop = () => {
     const [cart, setCart] = useState([]);
     const [cartTotal, setCartTotal] = useState(0);
-    const [viewCart, setViewCart] = useState(false); // This is where viewCart and setViewCart are defined
+    const [viewCart, setViewCart] = useState(false);
     const [isReviewing, setIsReviewing] = useState(false);
 
 
     const listItems = items.map((el) => (
-        <div key={el.cardID}>
-            <div className="card shadow-sm">
-                <img className="img-fluid" src={el.cardImage} alt={el.cardName} />
-                <div className="card-body">
-                    <div className="col">
-                        <div className="row text-muted">{el.cardName}</div>
-                        <div className="row">{el.set} - {el.collectionNumber}</div>
-                    </div>
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div className="btn-group">
-                            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => addToCart(el)}> + </button>{" "}
-                            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => removeFromCart(el)}> - </button>
-                        </div>
-                        <div>
-                            <small className="text-body-secondary">Qty: {howManyofThis(el.cardID)}</small>
-                        </div>
-                        <small className="text-muted">Price: ${el.price.toFixed(2)}</small>
-                    </div>
+        // PRODUCT
+        <div class="row border-top border-bottom" key={el.cardID}>
+            <div class="row main align-items-center">
+                <div class="col">
+                    <img id="card_image" class="img-fluid" src={el.cardImage} />
+                </div>
+                <div class="col">
+                    <div id="card_name" class="row">{el.cardName}</div>
+                    <div id="card_info" class="row">{el.set} - {el.collectionNumber}</div>
+                    <div id="card_price" class="row">${el.price}</div>
+                </div>
+                <div class="col">
+                    <button type="button" variant="light" onClick={() => removeFromCart(el)} > - </button>{" "}
+                    {howManyofThis(el.cardID)}{" "}
+                    <button type="button" variant="light" onClick={() => addToCart(el)}> + </button>
                 </div>
             </div>
-
         </div>
     ));
 
@@ -58,9 +54,13 @@ const Shop = () => {
     };
 
     const removeFromCart = (el) => {
+        let newQuantity = howManyofThis(el) - 1;
         let hardCopy = [...cart];
         hardCopy = hardCopy.filter((cartItem) => cartItem.cardID !== el.cardID);
         setCart(hardCopy);
+        for(let i = 0; i < newQuantity; i++){
+            addToCart(el);
+        }
     };
 
     const cartItems = cart.map((el) => (
@@ -155,8 +155,6 @@ const Shop = () => {
         </div>
     );
 
-
-
     const reviewScreen = (
         <div>
             <h2>Review Your Order</h2>
@@ -198,9 +196,9 @@ const Shop = () => {
                         <p>Total: ${cartTotal}</p>
                         {cartView}
                         {cart.map((item) => (
-                            <div key={item.id}>
-                                <img src={item.image} alt={item.title} width={150} />
-                                <p>{item.title} - ${item.price}</p>
+                            <div key={item.cardID}>
+                                <img src={item.cardImage} alt={item.cardName} width={150} />
+                                <p>{item.cardName} - ${item.price}</p>
                                 {/* Display other cart item details */}
                             </div>
                         ))}

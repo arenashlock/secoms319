@@ -13,8 +13,25 @@ code {
 }
 
 #cart_button {
-  float: right;
-  margin-top: 10px;
-  margin-right: 10px;
+  margin: 10px;
   font-size: 20px;
+}
+
+#card_image {
+  margin: 10px;
+}
+
+#card_name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#card_info {
+  font-size: 14px;
+  font-style: italic;
+}
+
+#card_price {
+  font-size: 14px;
+  font-weight: bold;
 }
