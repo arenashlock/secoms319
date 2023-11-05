@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './style.css'
 import items from "./pokemon_cards.json"
 
 const Shop = () => {
@@ -9,14 +10,13 @@ const Shop = () => {
 
 
     const listItems = items.map((el) => (
-        <div key={el.id}>
-
+        <div key={el.cardID}>
             <div className="card shadow-sm">
-                <img className="img-fluid" src={el.image} alt={el.title} />
+                <img className="img-fluid" src={el.cardImage} alt={el.cardName} />
                 <div className="card-body">
                     <div className="col">
-                        <div className="row text-muted">{el.title}</div>
-                        <div className="row">{el.category}</div>
+                        <div className="row text-muted">{el.cardName}</div>
+                        <div className="row">{el.set} - {el.collectionNumber}</div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
@@ -24,7 +24,7 @@ const Shop = () => {
                             <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => removeFromCart(el)}> - </button>
                         </div>
                         <div>
-                            <small className="text-body-secondary">Qty: {howManyofThis(el.id)}</small>
+                            <small className="text-body-secondary">Qty: {howManyofThis(el.cardID)}</small>
                         </div>
                         <small className="text-muted">Price: ${el.price.toFixed(2)}</small>
                     </div>
@@ -47,8 +47,8 @@ const Shop = () => {
     };
 
 
-    function howManyofThis(id) {
-        let hmot = cart.filter((cartItem) => cartItem.id === id);
+    function howManyofThis(cardID) {
+        let hmot = cart.filter((cartItem) => cartItem.cardID === cardID);
         return hmot.length;
     }
 
@@ -59,14 +59,14 @@ const Shop = () => {
 
     const removeFromCart = (el) => {
         let hardCopy = [...cart];
-        hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
+        hardCopy = hardCopy.filter((cartItem) => cartItem.cardID !== el.cardID);
         setCart(hardCopy);
     };
 
     const cartItems = cart.map((el) => (
-        <div key={el.id}>
+        <div key={el.cardID}>
             <img class=
-                "img-fluid" src={el.image} width={150} />
+                "img-fluid" src={el.cardImage} width={150} />
             {el.title}
             ${el.price}
         </div>));
@@ -182,15 +182,11 @@ const Shop = () => {
         </div>
     );
 
-
-
     return (
         <div>
-            <h1>STORE SE/ComS319</h1>
-            <button onClick={() => setViewCart(!viewCart)}>
+            <button id="cart_button" onClick={() => setViewCart(!viewCart)}>
                 {viewCart ? 'Back to Shop' : 'View Cart'}
             </button>
-
             {
                 isReviewing ? (
                     // Show review screen if the user is reviewing their order
@@ -215,16 +211,6 @@ const Shop = () => {
                     <div className="card">
                         <div className="row">
                             <div className="col-md-8 cart">
-                                <div className="title">
-                                    <div className="row">
-                                        <div className="col">
-                                            <h4><b>319 Shopping Cart</b></h4>
-                                        </div>
-                                        <div className="col align-self-center text-right text-muted">
-                                            Products selected {cart.length}
-                                        </div>
-                                    </div>
-                                </div>
                                 <div>{listItems}</div> {/* listItems is your mapped products */}
                             </div>
                         </div>

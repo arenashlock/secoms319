@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#cart_button {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 20px;
+}
