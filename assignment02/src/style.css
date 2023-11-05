@@ -35,3 +35,25 @@ code {
   font-size: 14px;
   font-weight: bold;
 }
+
+label {
+  margin: 5px;
+}
+
+#cvv {
+  margin-bottom: 10px;
+}
+
+#cart {
+  margin: 10px;
+  width: 200px;
+}
+
+#userInfo {
+  margin: 10px;
+  width: 400px;
+}
+
+.checkout {
+  text-align: center;
+}

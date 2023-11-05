@@ -6,8 +6,7 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
     const [cartTotal, setCartTotal] = useState(0);
     const [viewCart, setViewCart] = useState(false);
-    const [isReviewing, setIsReviewing] = useState(false);
-
+    const [orderComplete, setOrderComplete] = useState(false);
 
     const listItems = items.map((el) => (
         // PRODUCT
@@ -39,15 +38,13 @@ const Shop = () => {
 
     const handleCheckoutSubmit = (e) => {
         //checkout(checkoutForm, `${checkoutForm.address}, ${checkoutForm.city}, ${checkoutForm.zip}, ${checkoutForm.country}`);
-        setIsReviewing(true);
+        setOrderComplete(true);
     };
-
 
     function howManyofThis(cardID) {
         let hmot = cart.filter((cartItem) => cartItem.cardID === cardID);
         return hmot.length;
     }
-
 
     const addToCart = (el) => {
         setCart([...cart, el]);
@@ -97,10 +94,10 @@ const Shop = () => {
     const cartView = (
         <div>
             {/* ... (items in cart) */}
-            <h2>Checkout</h2>
+            <h2>Checkout Information</h2>
             <form onSubmit={handleCheckoutSubmit}>
                 <div>
-                    <label htmlFor="fullName">Full Name</label>
+                    <label htmlFor="fullName">Full Name </label>
                     <input
                         id="fullName"
                         type="text"
@@ -110,7 +107,7 @@ const Shop = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="address">Address</label>
+                    <label htmlFor="address">Address </label>
                     <input
                         id="address"
                         type="text"
@@ -131,7 +128,7 @@ const Shop = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="expirationDate">Expiration Date</label>
+                    <label htmlFor="expirationDate">Expiration Date </label>
                     <input
                         id="expirationDate"
                         type="text"
@@ -141,7 +138,7 @@ const Shop = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="cvv">CVV</label>
+                    <label htmlFor="cvv">CVV </label>
                     <input
                         id="cvv"
                         type="text"
@@ -155,54 +152,57 @@ const Shop = () => {
         </div>
     );
 
-    const reviewScreen = (
+    const completeScreen = (
         <div>
-            <h2>Review Your Order</h2>
+            <h2>Here's your order!</h2>
             <div>
-                <strong>Full Name:</strong> {checkoutForm.fullName}
+                <strong>Full Name: </strong> {checkoutForm.fullName}
             </div>
             <div>
-                <strong>Address:</strong> {checkoutForm.address}
+                <strong>Address: </strong> {checkoutForm.address}
             </div>
             {/* ... Repeat for other fields like city, zip, country */}
             <div>
-                <strong>Credit Card Number:</strong> {"********" + checkoutForm.creditCardNumber.substring(8)}
+                <strong>Credit Card Number: </strong> {"********" + checkoutForm.creditCardNumber.substring(8)}
             </div>
             {/* ... Repeat for other fields like expiration date and CVV */}
             {/* List out the items in the cart along with the total */}
-            <h3>Items:</h3>
+            <h3>Items: </h3>
             {cartItems}
-            <p><strong>Total:</strong> ${cartTotal.toFixed(2)}</p>
+            <p><strong>Total: </strong> ${cartTotal.toFixed(2)}</p>
             {/* Button to confirm the order */}
             <button onClick={console.log("confirmed")}>Confirm Order</button>
             {/* Button to go back and edit the checkout form */}
-            <button onClick={() => setIsReviewing(false)}>Edit Order</button>
+            <button onClick={() => setOrderComplete(false)}>Edit Order</button>
         </div>
     );
 
     return (
         <div>
-            <button id="cart_button" onClick={() => setViewCart(!viewCart)}>
-                {viewCart ? 'Back to Shop' : 'View Cart'}
+            <button id="cart_button" onClick={() => setViewCart(!(viewCart || orderComplete))}>
+                {(viewCart || orderComplete) ? 'Back to Shop' : 'View Cart'}
             </button>
             {
-                isReviewing ? (
+                orderComplete ? (
                     // Show review screen if the user is reviewing their order
-                    reviewScreen
+                    completeScreen
                 ) : viewCart ? (
                     // Cart view
-                    <div>
-                        <h2>Cart</h2>
-                        <p>Total: ${cartTotal}</p>
-                        {cartView}
-                        {cart.map((item) => (
-                            <div key={item.cardID}>
-                                <img src={item.cardImage} alt={item.cardName} width={150} />
-                                <p>{item.cardName} - ${item.price}</p>
-                                {/* Display other cart item details */}
-                            </div>
-                        ))}
-
+                    <div className="row">
+                        <div id="cart">
+                            <h2>Cart</h2>
+                            <p>Total: ${cartTotal}</p>
+                            {cart.map((item) => (
+                                <div class="checkout" key={item.cardID}>
+                                    <img src={item.cardImage} alt={item.cardName} width={150} />
+                                    <p>{item.cardName} - ${item.price}</p>
+                                    {/* Display other cart item details */}
+                                </div>
+                            ))}
+                        </div>
+                        <div id="userInfo">
+                            {cartView}
+                        </div>
                     </div>
                 ) : (
                     // Shop view
