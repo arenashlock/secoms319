@@ -308,7 +308,7 @@ const Shop = () => {
                         <div className="row">
                             <div id="cart">
                                 <h2>Cart</h2>
-                                <p>Total: ${cartTotal}</p>
+                                <p>Total: ${cartTotal.toFixed(2)}</p>
                                 {cart.map((item) => (
                                     <div class="checkout" key={item.cardID}>
                                         <img src={item.cardImage} alt={item.cardName} width={150} />
