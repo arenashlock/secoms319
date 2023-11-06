@@ -51,9 +51,62 @@ label {
 
 #userInfo {
   margin: 10px;
-  width: 400px;
+  width: 800px;
 }
 
 .checkout {
+  text-align: center;
+}
+
+#city {
+  width: 100px;
+}
+
+#stateLabel {
+  margin-left: 10px;
+}
+
+#state {
+  width: 45px;
+}
+
+#zipLabel {
+  margin-left: 10px;
+}
+
+#zip {
+  width: 60px;
+}
+
+#expirationDate {
+  width: 55px;
+}
+
+#cvvLabel {
+  margin-left: 10px;
+}
+
+#cvv {
+  width: 40px;
+}
+
+input:invalid {
+  background-color: #ffdddd;
+}
+
+#confirmation {
+  margin: 10px;
+}
+
+#addLine2 {
+  padding-left: 75px;
+}
+
+#summary {
+  margin: 10px;
+  width: 200px;
+}
+
+.finalOrder {
   text-align: center;
 }
