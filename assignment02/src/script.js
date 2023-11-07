@@ -16,6 +16,7 @@ const CardShop = () => {
     const [cart, setCart] = useState([]);
     const [cartTotal, setCartTotal] = useState(0);
     const [query, setQuery] = useState('');
+    const [uniqueCart, setUniqueCart] = useState([]);
 
     // ------------------------------------------------------------------------------------
 
@@ -36,31 +37,62 @@ const CardShop = () => {
     
     const addToCart = (el) => {
         setCart([...cart, el]);
+
+        if(howManyofThis(el.cardID) === 0){
+            addToUniqueCart(el);
+        }
     };
+
+    const addToUniqueCart = (el) => {
+        setUniqueCart([...uniqueCart, el]);
+
+    }
 
     const removeFromCart = (el) => {
         let hardCopy = [...cart];
         hardCopy.splice(hardCopy.indexOf(el), 1);
         setCart(hardCopy);
+
+        if(howManyofThis(el.cardID) === 1){
+            removeFromUniqueCart(el);
+        }
     };
+
+    const removeFromUniqueCart = (el) => {
+        let hardCopy = [...uniqueCart];
+        hardCopy.splice(hardCopy.indexOf(el), 1);
+        setUniqueCart(hardCopy);
+    }
 
     function howManyofThis(cardID) {
         let hmot = cart.filter((cartItem) => cartItem.cardID === cardID);
         return hmot.length;
     }
 
+    const total = () => {
+        let totalVal = 0;
+        for (let i = 0; i < cart.length; i++) {
+            totalVal += cart[i].price;
+        }
+        setCartTotal(totalVal);
+    };
+
+    useEffect(() => {
+        total();
+    }, [cart]);
+
     // ------------------------------------------------------------------------------------
 
     // -------------------------------- CHECKOUT FUNCTIONS --------------------------------
 
-    const cartItems = cart.map((el) => (
-        <div class="checkout" key={el.cardID}>
-            <img class=
-                "img-fluid" src={el.cardImage} width={150} />
-            {el.cardName}
-            {el.price}
-        </div>
-    ));
+    const individualTotal = (quantity, cost) => {
+        return quantity * cost;
+    }
+    
+    const handleCheckoutSubmit = () => {
+        setViewCart(false);
+        setOrderComplete(true);
+    };
 
     // ------------------------------------------------------------------------------------
 
@@ -100,59 +132,30 @@ const CardShop = () => {
         });
     };
 
-    const handleCheckoutSubmit = () => {
-        setViewCart(false);
-        setOrderComplete(true);
-    };
-
     // ------------------------------------------------------------------------------------
 
     // -------------------------------- SCREENS FUNCTIONS ---------------------------------
 
-    const listCards = (cards) => {
-        return <div class="album py-2 bg-white">
-            <div class="container-fluid">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-3">
-                    {cards.map((card) => (
-                        <div class="col-md-4" id={card.cardID}>
-                            <div class="card box-shadow">
-                                <img src={card.cardImage} alt={card.cardName} class="Pokemon-card-picture"/>
-                                <div class="card-body">
-                                    <h1 id="card_name">{card.cardName}</h1>
-                                    <h2 id="card_info">{card.set} - {card.collectionNumber}</h2>
-                                    <div class="d-flex justify-content-between align-items-center"></div>
-                                    <div class="changing_cart">
-                                        <button type="button" variant="light" onClick={() => removeFromCart(card)} > - </button>{" "}
-                                        {howManyofThis(card.cardID)} {" x $"}{card.price} {" "}
-                                        <button type="button" variant="light" onClick={() => addToCart(card)}> + </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+    const finalUserInformation = (
+        <div id="confirmation">
+            <div>
+                <strong>Full Name:</strong> {checkoutForm.fullName}
+            </div>
+            <div>
+                <strong>Email:</strong> {checkoutForm.email}
+            </div>
+            <div>
+                <strong>Address:</strong> {checkoutForm.address}<br/>
+                <div id="addLine2">{checkoutForm.city}, {checkoutForm.state} {checkoutForm.zip}</div>
+            </div>
+            <div>
+                <strong>Credit Card Number: </strong> {"************" + checkoutForm.creditCardNumber.substring(12)}
             </div>
         </div>
-    };
+    );
 
-    // ------------------------------------------------------------------------------------
-
-    useEffect(() => {
-        total();
-    }, [cart]);
-
-    const total = () => {
-        let totalVal = 0;
-        for (let i = 0; i < cart.length; i++) {
-            totalVal += cart[i].price;
-        }
-        setCartTotal(totalVal);
-    };
-
-    const cartView = (
-        <div>
-            {/* ... (items in cart) */}
-            <h2>Checkout Information</h2>
+    const checkoutInfoInput = (
+        <div id="userInfo">
             <form onSubmit={handleCheckoutSubmit}>
                 <div>
                     <label htmlFor="fullName">Full Name </label>
@@ -301,49 +304,83 @@ const CardShop = () => {
         </div>
     );
 
-    const completeScreen = (
-        <div id="confirmation">
-            <h2>Here's your order!</h2>
-            <div>
-                <strong>Full Name: </strong> {checkoutForm.fullName}
-            </div>
-            <div>
-                <strong>Email: </strong> {checkoutForm.email}
-            </div>
-            <div>
-                <strong>Address: </strong> {checkoutForm.address}<br></br>
-                <div id="addLine2">{checkoutForm.city}, {checkoutForm.state} {checkoutForm.zip}</div>
-            </div>
-            {/* ... Repeat for other fields like city, zip, country */}
-            <div>
-                <strong>Credit Card Number: </strong> {"************" + checkoutForm.creditCardNumber.substring(12)}
-            </div>
-            {/* ... Repeat for other fields like expiration date and CVV */}
-            {/* List out the items in the cart along with the total */}
-            <div id="summary">
-                <h3 class="finalOrder"><strong>Total: </strong> ${cartTotal.toFixed(2)}</h3>
-                {cart.map((item) => (
-                    <div class="finalOrder" key={item.cardID}>
-                        <img src={item.cardImage} alt={item.cardName} width={150} />
-                        <p>{item.cardName} - ${item.price}</p>
-                        {/* Display other cart item details */}
+    const cartItems = (uniqueCart) => {
+        return <div className="card border-0">
+            <div className="row">
+                <div class="album py-2 bg-white">
+                    <div class="container-fluid">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-3">
+                            {uniqueCart.map((card) => (
+                                <div class="col-md-4" id={card.cardID}>
+                                    <div class="card box-shadow">
+                                        <img src={card.cardImage} alt={card.cardName} class="Pokemon-card-picture"/>
+                                        <div class="card-body">
+                                            <h1 id="card_name">{card.cardName}</h1>
+                                            <h2 id="card_info">{card.set} - {card.collectionNumber}</h2>
+                                            <div class="d-flex justify-content-between align-items-center"></div>
+                                            <div class="changing_cart">
+                                                {howManyofThis(card.cardID)} {" x $"}{card.price} {" = $"}{individualTotal(howManyofThis(card.cardID), card.price).toFixed(2)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                ))}
+                </div>
             </div>
         </div>
-    );
+    };
+
+    const listCards = (cards) => {
+        return <div className="card border-0">
+            <div className="row">
+                <div class="album py-2 bg-white">
+                    <div class="container-fluid">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-3">
+                            {cards.map((card) => (
+                                <div class="col-md-4" id={card.cardID}>
+                                    <div class="card box-shadow">
+                                        <img src={card.cardImage} alt={card.cardName} class="Pokemon-card-picture"/>
+                                        <div class="card-body">
+                                            <h1 id="card_name">{card.cardName}</h1>
+                                            <h2 id="card_info">{card.set} - {card.collectionNumber}</h2>
+                                            <div class="d-flex justify-content-between align-items-center"></div>
+                                            <div class="changing_cart">
+                                                <button type="button" variant="light" onClick={() => removeFromCart(card)} > - </button>{" "}
+                                                {howManyofThis(card.cardID)} {" x $"}{card.price} {" "}
+                                                <button type="button" variant="light" onClick={() => addToCart(card)}> + </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    };
+
+    // ------------------------------------------------------------------------------------
+
+    // -------------------------------------- HTML ----------------------------------------
 
     return (
         <div>
             {
                 orderComplete ? (
+                    // Confirmation view
                     <div>
-                        <button class="page_button" onClick={() => {setCart([]); setCartTotal(0); resetUserInfo(); setOrderComplete(false)}}>
+                        <button class="page_button" onClick={() => {setCart([]); setCartTotal(0); setUniqueCart([]); resetUserInfo(); setOrderComplete(false)}}>
                             Shop Again
                         </button>
                         <div>
-                            {completeScreen}
+                            <h1>Here's your order!</h1>
+                            {finalUserInformation}
                         </div>
+                        <h2>Total: ${cartTotal.toFixed(2)}</h2>
+                        {cartItems(uniqueCart)}
                     </div>
                 ) : viewCart ? (
                     // Cart view
@@ -351,19 +388,15 @@ const CardShop = () => {
                         <button class="page_button" onClick={() => {resetUserInfo(); setViewCart(false)}}>
                             Return
                         </button>
-                        <div className="row">
-                            <div id="cart">
-                                <h2>Cart</h2>
-                                <p>Total: ${cartTotal.toFixed(2)}</p>
-                                {cartItems}
-                            </div>
-                            <div id="userInfo">
-                                {cartView}
-                            </div>
+                        <div>
+                            <h1>Checkout Information</h1>
+                            {checkoutInfoInput}
                         </div>
+                        <h2>Total: ${cartTotal.toFixed(2)}</h2>
+                        {cartItems(uniqueCart)}
                     </div>
                 ) : (
-                    // Shop view
+                    // Card Shop view
                     <div>
                         <div>
                             <input id="searchbar" type="search" value={query} onChange={handleSearch} />
@@ -371,15 +404,14 @@ const CardShop = () => {
                                 View Cart
                             </button>
                         </div>
-                        <div className="card border-0">
-                            <div className="row">
-                                    <div>{listCards(cards)}</div>
-                            </div>
-                        </div>
+                        <div>{listCards(cards)}</div>
                     </div>
-                )}
+                )
+            }
         </div>
     );
+
+    // ------------------------------------------------------------------------------------
 };
 
 export default CardShop;
