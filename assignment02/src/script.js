@@ -400,7 +400,7 @@ const CardShop = () => {
                     <div>
                         <div>
                             <input id="searchbar" type="search" value={query} onChange={handleSearch} />
-                            <button class="page_button" onClick={() => setViewCart(true)}>
+                            <button class="page_button" onClick={() => {setQuery(''); setCards(items); setViewCart(true)}}>
                                 View Cart
                             </button>
                         </div>
