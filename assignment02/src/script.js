@@ -2,49 +2,27 @@ import React, { useState, useEffect } from "react";
 import './style.css'
 import items from "./pokemon_cards.json"
 
-const Shop = () => {
-    const [cart, setCart] = useState([]);
-    const [cartTotal, setCartTotal] = useState(0);
+const CardShop = () => {
+    // --------------------------------- SCREEN USESTATES ---------------------------------
+
+    const [cards, setCards] = useState(items);
     const [viewCart, setViewCart] = useState(false);
     const [orderComplete, setOrderComplete] = useState(false);
 
-    const listItems = items.map((el) => (
-        // PRODUCT
-        <div class="row border-top border-bottom" key={el.cardID}>
-            <div class="row main align-items-center">
-                <div class="col">
-                    <img id="card_image" class="img-fluid" src={el.cardImage} />
-                </div>
-                <div class="col">
-                    <div id="card_name" class="row">{el.cardName}</div>
-                    <div id="card_info" class="row">{el.set} - {el.collectionNumber}</div>
-                    <div id="card_price" class="row">${el.price}</div>
-                </div>
-                <div class="col">
-                    <button type="button" variant="light" onClick={() => removeFromCart(el)} > Clear </button>{" "}
-                    {howManyofThis(el.cardID)}{" "}
-                    <button type="button" variant="light" onClick={() => addToCart(el)}> + </button>
-                </div>
-            </div>
-        </div>
-    ));
+    // ------------------------------------------------------------------------------------
 
-    const handleInputChange = (field, value) => {
-        setCheckoutForm({
-            ...checkoutForm,
-            [field]: value
-        });
-    };
+    // ---------------------------------- CART USESTATES ----------------------------------
 
-    const handleCheckoutSubmit = (e) => {
-        setViewCart(false);
-        setOrderComplete(true);
-    };
+    const [cart, setCart] = useState([]);
+    const [cartTotal, setCartTotal] = useState(0);
 
-    function howManyofThis(cardID) {
-        let hmot = cart.filter((cartItem) => cartItem.cardID === cardID);
-        return hmot.length;
-    }
+    // ------------------------------------------------------------------------------------
+
+
+
+
+
+    // ---------------------------------- CART FUNCTIONS ----------------------------------
 
     const addToCart = (el) => {
         setCart([...cart, el]);
@@ -55,6 +33,22 @@ const Shop = () => {
         hardCopy = hardCopy.filter((cartItem) => cartItem.cardID !== el.cardID);
         setCart(hardCopy);
     };
+
+    // ------------------------------------------------------------------------------------
+
+    // -------------------------------- CHECKOUT FUNCTIONS --------------------------------
+
+    const [checkoutForm, setCheckoutForm] = useState({
+        fullName: '',
+        email: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        creditCardNumber: '',
+        expirationDate: '',
+        cvv: '',
+    });
 
     const resetUserInfo = (e) => {
         setCheckoutForm({
@@ -69,6 +63,61 @@ const Shop = () => {
             expirationDate: '',
             cvv: ''
         });
+    }
+
+    // ------------------------------------------------------------------------------------
+
+    // ----------------------------- CHECKOUT FORM FUNCTIONS ------------------------------
+
+
+
+    // ------------------------------------------------------------------------------------
+
+    // -------------------------------- SCREENS FUNCTIONS ---------------------------------
+
+    const listCards = (cards) => {
+        return <div class="album py-2 bg-white">
+            <div class="container-fluid">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-3">
+                    {cards.map((card) => (
+                        <div class="col-md-4" id={card.cardID}>
+                            <div class="card box-shadow">
+                                <img src={card.cardImage} alt={card.cardName} class="Pokemon-card-picture"/>
+                                <div class="card-body">
+                                    <h1 id="card_name">{card.cardName}</h1>
+                                    <h2 id="card_info">{card.set} - {card.collectionNumber}</h2>
+                                    <div class="d-flex justify-content-between align-items-center"></div>
+                                    <div class="changing_cart">
+                                        <button type="button" variant="light" onClick={() => removeFromCart(card)} > - </button>{" "}
+                                        {howManyofThis(card.cardID)} {" x $"}{card.price} {" "}
+                                        <button type="button" variant="light" onClick={() => addToCart(card)}> + </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    };
+
+    // ------------------------------------------------------------------------------------
+
+    const handleFieldChange = (field, value) => {
+        setCheckoutForm({
+            ...checkoutForm,
+            [field]: value
+        });
+    };
+
+    const handleCheckoutSubmit = (e) => {
+        setViewCart(false);
+        setOrderComplete(true);
+    };
+
+    function howManyofThis(cardID) {
+        let hmot = cart.filter((cartItem) => cartItem.cardID === cardID);
+        return hmot.length;
     }
 
     const cartItems = cart.map((el) => (
@@ -91,18 +140,6 @@ const Shop = () => {
         setCartTotal(totalVal);
     };
 
-    const [checkoutForm, setCheckoutForm] = useState({
-        fullName: '',
-        email: '',
-        address: '',
-        city: '',
-        state: '',
-        zip: '',
-        creditCardNumber: '',
-        expirationDate: '',
-        cvv: '',
-    });
-
     const cartView = (
         <div>
             {/* ... (items in cart) */}
@@ -114,7 +151,7 @@ const Shop = () => {
                         id="fullName"
                         type="text"
                         value={checkoutForm.fullName}
-                        onChange={(e) => handleInputChange('fullName', e.target.value)}
+                        onChange={(e) => handleFieldChange('fullName', e.target.value)}
                         required
                     />
                 </div>
@@ -125,7 +162,7 @@ const Shop = () => {
                         type="email"
                         
                         value={checkoutForm.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        onChange={(e) => handleFieldChange('email', e.target.value)}
                         required
                     />
                 </div>
@@ -135,7 +172,7 @@ const Shop = () => {
                         id="address"
                         type="text"
                         value={checkoutForm.address}
-                        onChange={(e) => handleInputChange('address', e.target.value)}
+                        onChange={(e) => handleFieldChange('address', e.target.value)}
                         required
                     />
                 </div>
@@ -145,7 +182,7 @@ const Shop = () => {
                         id="city"
                         type="text"
                         value={checkoutForm.city}
-                        onChange={(e) => handleInputChange('city', e.target.value)}
+                        onChange={(e) => handleFieldChange('city', e.target.value)}
                         required
                     />
                     <label id="stateLabel" htmlFor="state">State </label>
@@ -153,7 +190,7 @@ const Shop = () => {
                         id="state"
                         name="state"
                         value={checkoutForm.state}
-                        onChange={(e) => handleInputChange('state', e.target.value)}
+                        onChange={(e) => handleFieldChange('state', e.target.value)}
                         required
                     >
                         <option value="AK">AK</option>
@@ -215,7 +252,7 @@ const Shop = () => {
                         maxlength="5"
                         pattern="^\d{5}$"
                         value={checkoutForm.zip}
-                        onChange={(e) => handleInputChange('zip', e.target.value)}
+                        onChange={(e) => handleFieldChange('zip', e.target.value)}
                         required
                     />
                 </div>
@@ -228,7 +265,7 @@ const Shop = () => {
                         maxlength="16"
                         pattern="^\d{16}$"
                         value={checkoutForm.creditCardNumber}
-                        onChange={(e) => handleInputChange('creditCardNumber', e.target.value)}
+                        onChange={(e) => handleFieldChange('creditCardNumber', e.target.value)}
                         required
                     />
                 </div>
@@ -238,7 +275,7 @@ const Shop = () => {
                         id="expirationDate"
                         type="text"
                         value={checkoutForm.expirationDate}
-                        onChange={(e) => handleInputChange('expirationDate', e.target.value)}
+                        onChange={(e) => handleFieldChange('expirationDate', e.target.value)}
                         required
                     />
                     <label id="cvvLabel" htmlFor="cvv">CVV </label>
@@ -246,7 +283,7 @@ const Shop = () => {
                         id="cvv"
                         type="text"
                         value={checkoutForm.cvv}
-                        onChange={(e) => handleInputChange('cvv', e.target.value)}
+                        onChange={(e) => handleFieldChange('cvv', e.target.value)}
                         required
                     />
                 </div>
@@ -328,11 +365,11 @@ const Shop = () => {
                         <button id="cart_button" onClick={() => setViewCart(true)}>
                             View Cart
                         </button>
-                        <div className="card">
+                        <div className="card border-0">
                             <div className="row">
-                                <div className="col-md-8 cart">
-                                    <div>{listItems}</div> {/* listItems is your mapped products */}
-                                    </div>
+
+                                    <div>{listCards(cards)}</div>
+
                             </div>
                         </div>
                     </div>
@@ -341,4 +378,4 @@ const Shop = () => {
     );
 };
 
-export default Shop;
+export default CardShop;
