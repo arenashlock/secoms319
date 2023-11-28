@@ -1,0 +1,46 @@
+/* ---------------------- Cross-Screen Styles ----------------------- */
+
+#footer {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 1;
+
+    background-color: white;
+}
+
+#publicationNote {
+    margin-left: 5px;
+
+    font-size: 15px;
+}
+
+#switchToAbout {
+    float: right;
+    margin-top: 7px;
+    margin-right: 5px;
+}
+
+/* -------------------- Collection Screen Styles -------------------- */
+
+.topCollectionScreen {
+    font-size: 18px;
+
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+}
+
+#cardSearch {
+    margin-right: 5px;
+}
+
+#switchToDecklists {
+    float: right;
+    margin-left: 5px;
+}
+
+#increaseCollectionCount {
+    float: right;
+}

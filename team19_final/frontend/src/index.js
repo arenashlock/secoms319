@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import FinalProject from "./script.js";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <p>Hello World</p>
+    <FinalProject />
   </React.StrictMode>
 );
