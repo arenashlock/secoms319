@@ -11,18 +11,58 @@ const FinalProject = () => {
 
     // ------------------------------------------------------------------------------------
 
-    // --------------------------------- SEARCH USESTATES ---------------------------------
+    // --------------------------------- OTHER USESTATES ----------------------------------
 
-    const [query, setQuery] = useState('');
+    const [cardSearch, setCardSearch] = useState('');
+
+    // ------------------------------------------------------------------------------------
+
+    // ---------------------------- COLLECTION VIEW FUNCTIONS -----------------------------
+
+    const getAllCards = () => {
+        fetch('http://localhost:8081/cards')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                var container = document.getElementById("collectionViewCards");
+                container.innerHTML = `<div class="row">`;
+                for(let i = 0; i < data.length; i++) {
+                    let eachCard = document.createElement("div");
+                    eachCard.className = "column";
+                    eachCard.innerHTML = `
+                        <img src=${data[i].cardImage}>
+                    `;
+                    container.appendChild(eachCard);
+                }
+            })
+    }
+    
+    const searchCard = (name) => {
+        setCardSearch(name.target.value);
+
+        fetch('http://localhost:8081/' + name.target.value)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                var container = document.getElementById("collectionViewCards");
+                container.innerHTML = `
+                    <img src=${data.cardImage}>
+                `;
+            })
+    }
+
+    const filterCards = () => {
+        getAllCards();
+    }
 
     // ------------------------------------------------------------------------------------
 
     // ----------------------------------- NAVBAR HTML ------------------------------------
     
-    const navBar = (
+    const collectionViewBar = (
         <div>
-            <input class="topCollectionScreen" id="cardSearch" type="search" placeholder="Search for a card..." value={query} />
-            <button class="topCollectionScreen" id="filterButton">Filter</button>
+            <input class="topCollectionScreen" id="cardSearch" type="search" placeholder="Search for a card..." value={cardSearch} onChange={searchCard} />
+            <button class="topCollectionScreen" id="filterButton" onClick={() => {filterCards();}}>Filter</button>
             <button class="topCollectionScreen" id="switchToDecklists" onClick={() => {setViewCollection(false); setViewDecklists(true);}}>View Decklists</button>
             <button class="topCollectionScreen" id="increaseCollectionCount">Card +</button>
         </div>
@@ -33,8 +73,10 @@ const FinalProject = () => {
     // ----------------------------------- SCREEN HTML ------------------------------------
     
     const collectionView = (
-        <div>
-            <p>Collection View</p>
+        <div id="collectionViewMainContainer">
+            <div id="collectionViewCards">
+
+            </div>
         </div>
     );
 
@@ -73,19 +115,25 @@ const FinalProject = () => {
         <div>
             {viewCollection ? (
                 <div>
-                    {navBar}
+                    {collectionViewBar}
                     {collectionView}
+                    {bottomBar}
                 </div>
              ) :
              viewDecklists ? (
-                decklistsView
+                <div>
+                    {decklistsView}
+                    {bottomBar}
+                </div>
              ) :
              editDecklist ? ( 
-                decklistEdit
+                <div>
+                    {decklistEdit}
+                    {bottomBar}
+                </div>
              ) : (
              aboutView
              )}
-            {bottomBar}
         </div>
     );
 };
