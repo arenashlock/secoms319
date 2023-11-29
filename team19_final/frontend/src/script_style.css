@@ -1,7 +1,7 @@
 /* ---------------------- Cross-Screen Styles ----------------------- */
 
 #footer {
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
     position: fixed;
@@ -11,7 +11,7 @@
 }
 
 #publicationNote {
-    margin-left: 5px;
+    margin-left: 10px;
 
     font-size: 15px;
 }
@@ -19,7 +19,10 @@
 #switchToAbout {
     float: right;
     margin-top: 7px;
-    margin-right: 5px;
+    margin-right: 10px;
+
+    border-radius: 5px;
+    border-color: black;
 }
 
 /* -------------------- Collection Screen Styles -------------------- */
@@ -27,12 +30,15 @@
 .topCollectionScreen {
     font-size: 18px;
 
+    margin-top: 40px;
+
     background-color: white;
     border-radius: 5px;
     border-color: black;
 }
 
 #cardSearch {
+    margin-left: 10px;
     margin-right: 5px;
 }
 
@@ -43,4 +49,62 @@
 
 #increaseCollectionCount {
     float: right;
+}
+
+/* ----- Individual Cards -----*/
+
+.individualCard {
+    float: left;
+    margin: 10px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.cardImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cardName {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.cardInfo {
+    margin-top: 0px;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.quantityOfCard {
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.changeQuantity {
+    background-color: lightgray;
+    border-radius: 5px;
+    border-color: black;
+}
+
+.udCard {
+    margin: 5px;
+}
+
+#editCard {
+    background-color: lightblue;
+    border-radius: 5px;
+    border-color: black;
+}
+
+#deleteCard {
+    background-color: lightcoral;
+    border-radius: 5px;
+    border-color: black;
 }
