@@ -1,6 +1,6 @@
 /* ---------------------- Cross-Screen Styles ----------------------- */
 
-#footer {
+#header {
     top: 0;
     left: 0;
     right: 0;
@@ -25,9 +25,7 @@
     border-color: black;
 }
 
-/* -------------------- Collection Screen Styles -------------------- */
-
-.topCollectionScreen {
+.topScreen {
     font-size: 18px;
 
     margin-top: 40px;
@@ -37,14 +35,11 @@
     border-color: black;
 }
 
+/* -------------------- Collection Screen Styles -------------------- */
+
 #cardSearch {
     margin-left: 10px;
     margin-right: 5px;
-}
-
-#switchToDecklists {
-    float: right;
-    margin-left: 5px;
 }
 
 #increaseCollectionCount {
@@ -107,4 +102,34 @@
     background-color: lightcoral;
     border-radius: 5px;
     border-color: black;
+
+    margin-left: 5px;
+}
+
+/* -------------------- Add Card Screen Styles -------------------- */
+
+#cancelAddCard {
+    background-color: lightcoral;
+}
+
+#formInfo {
+    float: left;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.formInfoIndividual {
+    margin-bottom: 10px;
+}
+
+#addCardButton {
+    font-size: 18px;
+
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+}
+
+#previewContainer {
+    text-align: center;
 }

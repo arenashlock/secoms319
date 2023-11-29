@@ -76,11 +76,11 @@ app.post("/addCard", async (req, res) => {
         res.status(201).send(result);
     } catch (error) {
         console.error("Error occurred in POST: ", error);
-        res.status(500).send("Error occurred while adding a new robot");
+        res.status(500).send("Error occurred while adding a new card");
     }
 });
 
-app.delete("/deleteCard/:id", async (req, res) => {
+/*app.delete("/deleteCard/:id", async (req, res) => {
     try {
         await client.connect();
         console.log("Request: /deleteCard/:id");
@@ -97,4 +97,16 @@ app.delete("/deleteCard/:id", async (req, res) => {
         console.error("Error occurred in DELETE: ", error);
         res.status(500).send("Error occurred while removing the card");
     }
-});    
+});*/
+
+app.delete("/deleteCard", async (req, res) => {
+    await client.connect();
+    // const keys = Object.keys(req.body);
+    const values = Object.values(req.body);
+    const id = values[0]; // id
+    console.log("Card to delete:", id);
+    const query = { id: id };
+    const results = await db.collection("cards").deleteOne(query);
+    res.status(200);
+    res.send(results);
+    });
