@@ -6,9 +6,8 @@
   "cardName": "Gardevoir ex",
   "set": "SV01",
   "collectionNumber": "086",
-  "price": 0.91,
-  "cardImage": "https://www.pokemon.com/static-assets/content-assets/cms2/img/cards/web/SV01/SV01_EN_86.png",
-  "id": 1
+  "quantity": 1,
+  "cardImage": "https://www.pokemon.com/static-assets/content-assets/cms2/img/cards/web/SV01/SV01_EN_86.png"
 },
 {
   "_id": {
@@ -18,9 +17,8 @@
   "cardName": "Gardevoir",
   "set": "SWSH06",
   "collectionNumber": "061",
-  "price": 1.24,
-  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SWSH6/SWSH6_EN_61.png",
-  "id": 2
+  "quantity": 1,
+  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SWSH6/SWSH6_EN_61.png"
 },
 {
   "_id": {
@@ -30,9 +28,8 @@
   "cardName": "Zacian V",
   "set": "CLB",
   "collectionNumber": "016",
-  "price": 0.25,
-  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/CEL/CEL_EN_16.png",
-  "id": 3
+  "quantity": 1,
+  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/CEL/CEL_EN_16.png"
 },
 {
   "_id": {
@@ -42,9 +39,8 @@
   "cardName": "Mew",
   "set": "CLB",
   "collectionNumber": "011",
-  "price": 0.28,
-  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/CEL/CEL_EN_11.png",
-  "id": 4
+  "quantity": 1,
+  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/CEL/CEL_EN_11.png"
 },
 {
   "_id": {
@@ -54,9 +50,8 @@
   "cardName": "Radiant Greninja",
   "set": "SWSH10",
   "collectionNumber": "046",
-  "price": 2.95,
-  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SWSH10/SWSH10_EN_46.png",
-  "id": 5
+  "quantity": 1,
+  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SWSH10/SWSH10_EN_46.png"
 },
 {
   "_id": {
@@ -66,9 +61,8 @@
   "cardName": "Cresselia",
   "set": "SWSH11",
   "collectionNumber": "074",
-  "price": 0.99,
-  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SWSH11/SWSH11_EN_74.png",
-  "id": 6
+  "quantity": 1,
+  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SWSH11/SWSH11_EN_74.png"
 },
 {
   "_id": {
@@ -78,9 +72,8 @@
   "cardName": "Manaphy",
   "set": "SWSH09",
   "collectionNumber": "041",
-  "price": 0.34,
-  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SWSH9/SWSH9_EN_41.png",
-  "id": 7
+  "quantity": 1,
+  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SWSH9/SWSH9_EN_41.png"
 },
 {
   "_id": {
@@ -90,7 +83,6 @@
   "cardName": "Reversal Energy",
   "set": "SV02",
   "collectionNumber": "192",
-  "price": 0.24,
-  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SV02/SV02_EN_192.png",
-  "id": 8
+  "quantity": 1,
+  "cardImage": "https://assets.pokemon.com/assets/cms2/img/cards/web/SV02/SV02_EN_192.png"
 }]
