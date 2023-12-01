@@ -81,3 +81,30 @@ app.get("/cards", async (req, res) => {
                 res.status(500).send("Error occurred while deleting the robot");
             }
         });    
+
+        app.put("/updateCard/:id", async (req, res) => {
+            try {
+                await client.connect();
+                console.log("Node connected successfully to PUT MongoDB for updating a card");
+        
+                const cardId = Number(req.params.id); // or use req.params.id directly if IDs are stored as strings
+                const updatedData = req.body; // Data sent in the body of the PUT request
+        
+                const result = await db.collection("cards").updateOne(
+                    { id: cardId },
+                    { $set: updatedData }
+                );
+        
+                if (result.matchedCount === 0) {
+                    return res.status(404).send("No card with the specified ID found");
+                }
+        
+                res.status(200).send("Card updated successfully");
+            } catch (error) {
+                console.error("Error occurred in PUT:", error);
+                res.status(500).send("Error occurred while updating the card");
+            }
+        });
+        
+        
+        
