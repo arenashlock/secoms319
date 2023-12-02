@@ -1,0 +1,135 @@
+/* ---------------------- Cross-Screen Styles ----------------------- */
+
+#header {
+    top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 1;
+
+    background-color: white;
+}
+
+#publicationNote {
+    margin-left: 10px;
+
+    font-size: 15px;
+}
+
+#switchToAbout {
+    float: right;
+    margin-top: 7px;
+    margin-right: 10px;
+
+    border-radius: 5px;
+    border-color: black;
+}
+
+.topScreen {
+    font-size: 18px;
+
+    margin-top: 40px;
+
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+}
+
+/* -------------------- Collection Screen Styles -------------------- */
+
+#cardSearch {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+#increaseCollectionCount {
+    float: right;
+}
+
+/* ----- Individual Cards -----*/
+
+.individualCard {
+    float: left;
+    margin: 10px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.cardImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cardName {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.cardInfo {
+    margin-top: 0px;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.quantityOfCard {
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.changeQuantity {
+    background-color: lightgray;
+    border-radius: 5px;
+    border-color: black;
+}
+
+.udCard {
+    margin: 5px;
+}
+
+#editCard {
+    background-color: lightblue;
+    border-radius: 5px;
+    border-color: black;
+}
+
+#deleteCard {
+    background-color: lightcoral;
+    border-radius: 5px;
+    border-color: black;
+
+    margin-left: 5px;
+}
+
+/* -------------------- Add Card Screen Styles -------------------- */
+
+#cancelAddCard {
+    background-color: lightcoral;
+}
+
+#formInfo {
+    float: left;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.formInfoIndividual {
+    margin-bottom: 10px;
+}
+
+#addCardButton {
+    font-size: 18px;
+
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+}
+
+#previewContainer {
+    text-align: center;
+}
