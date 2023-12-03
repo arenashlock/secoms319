@@ -6,7 +6,6 @@ const FinalProject = () => {
 
     const [viewCollection, setViewCollection] = useState(true);
     const [addCard, setAddCard] = useState(false);
-    const [viewAbout, setViewAbout] = useState(false);
 
     // ------------------------------------------------------------------------------------
 
@@ -190,10 +189,6 @@ const FinalProject = () => {
             })
     }
 
-    const filterCards = () => {
-        // FINISH
-    }
-
     const cardDelete = (card) => {
         let deleteConfirmation = "You are about to delete the following card from your collection:\n\n" + card.cardName + " (" + card.cardID + ")";
         
@@ -201,16 +196,14 @@ const FinalProject = () => {
             fetch('http://localhost:8081/deleteCard', {
                 method: "DELETE",
                 headers: { 'content-type': 'application/json' },
-                body: JSON.stringify({"id": card.id})
+                body: JSON.stringify({"cardID": card.cardID})
             })
-                .then(response => {response.json(); searchCard(cardSearch)})
-                .then(deletedCard => {
-                    console.log(deletedCard)
-                })
-                .catch((err) => console.log("Errror: " + err));
-
-            // TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-            searchCard(cardSearch);
+                .then(response => {response.json()})
+                .then(deletedCard => {console.log(deletedCard)})
+                .catch((err) => console.log("Error: " + err));
+            
+            window.location.reload();
+            console.log("Reload the window after deleting a card");
         }
     }
 
@@ -241,7 +234,32 @@ const FinalProject = () => {
     
     const cardAdd = () => {
         // FINISH
-        resetCardInformation();
+        const newCardJSON = JSON.stringify({
+            "cardID": cardInformation.set + "-" + cardInformation.collectionNumber,
+            "cardName": cardInformation.cardName,
+            "set": cardInformation.set,
+            "collectionNumber": cardInformation.collectionNumber,
+            "quantity": 1,
+            "cardImage": cardInformation.cardImage
+        })
+
+        console.log(newCardJSON);
+
+        fetch('http://localhost:8081/addCard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: newCardJSON
+        })
+            .then(response => response.json)
+            .then(card => {
+                console.log(card);
+                resetCardInformation();
+                setViewCollection(true);
+                setAddCard(false);
+                getAllCards();
+            })
     }
 
     // ------------------------------------------------------------------------------------
@@ -250,7 +268,7 @@ const FinalProject = () => {
 
     const topBar = (
         <div id="header">
-            <button id="switchToAbout" onClick={() => {setViewCollection(false); setAddCard(false); setViewAbout(true);}}>About the Team</button>
+            <button id="switchToAbout" onClick={() => {setViewCollection(false); setAddCard(false); resetCardInformation(); setCardSearch('');}}>About the Team</button>
             <h1 id="publicationNote">Developed by Aren Ashlock and Eli Newland (Fall 2023)</h1>
         </div>
     );
@@ -261,14 +279,13 @@ const FinalProject = () => {
     
     const collectionViewBar = (
         <div>
-            <input class="topScreen" id="cardSearch" type="search" placeholder="Search for a card..." value={cardSearch} onChange={searchCard} />
-            <button class="topScreen" id="filterButton" onClick={filterCards}>Filter</button>
-            <button class="topScreen" id="increaseCollectionCount" onClick={() => {setViewCollection(false); setAddCard(true); setCardSearch('')}}>Card +</button>
+            <input class="topScreenClass" id="cardSearch" type="search" placeholder="Search for a card..." value={cardSearch} onChange={searchCard} />
+            <button class="topScreenClass" id="increaseCollectionCount" onClick={() => {setViewCollection(false); setAddCard(true); setCardSearch('');}}>Card +</button>
         </div>
     );
 
     const addCardViewBar = (
-        <button class="topScreen" id="cancelAddCard" onClick={() => {setViewCollection(true); setAddCard(false); resetCardInformation(); getAllCards();}}>Cancel</button>
+        <button class="topScreenClass" id="cancelAddCard" onClick={() => {setViewCollection(true); setAddCard(false); resetCardInformation(); getAllCards();}}>Cancel</button>
     );
 
     // ------------------------------------------------------------------------------------
@@ -277,75 +294,92 @@ const FinalProject = () => {
     
     const collectionView = (
         <div id="collectionViewMainContainer">
-            <div id="filterChoices">
-            </div>
-
             <div id="collectionViewCards">
             </div>
         </div>
     );
 
     const addCardView = (
-        <div id="addCardViewMainContainer">
+        <div>
             <div id="formInfo">
-                <form onSubmit={addCard}>
-                    <div class="formInfoIndividual">
-                        <label htmlFor="cardName">Card Name </label>
-                        <input
-                            id="newCardNameInput"
-                            type="text"
-                            size="20"
-                            style={{marginLeft: '5px', fontSize: '18px'}}
-                            value={cardInformation.cardName}
-                            onChange={(e) => handleFieldChangeAdd('cardName', e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div class="formInfoIndividual">
-                        <label htmlFor="set">Set </label>
-                        <input
-                            id="newSetInput"
-                            type="text"
-                            size="10"
-                            style={{marginLeft: '5px', fontSize: '18px'}}
-                            value={cardInformation.set}
-                            onChange={(e) => handleFieldChangeAdd('set', e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div class="formInfoIndividual">
-                        <label htmlFor="collectionNumber">Collection Number </label>
-                        <input
-                            id="newCollectionNumberInput"
-                            type="text"
-                            size="5"
-                            style={{marginLeft: '5px', fontSize: '18px'}}
-                            value={cardInformation.collectionNumber}
-                            onChange={(e) => handleFieldChangeAdd('collectionNumber', e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div class="formInfoIndividual">
-                        <label htmlFor="image">Image URL </label>
-                        <input
-                            id="newImageInput"
-                            type="text"
-                            size="40"
-                            style={{marginLeft: '5px', fontSize: '18px'}}
-                            value={cardInformation.image}
-                            onChange={(e) => handleFieldChangeAdd('image', e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button id="addCardButton" type="submit">Add Card to Database</button>
-                </form>
+                <></>
+                <div class="formInfoIndividual">
+                    <label htmlFor="cardName">Card Name </label>
+                    <input
+                        id="newCardNameInput"
+                        type="text"
+                        size="20"
+                        style={{marginTop: '10px', marginLeft: '5px', fontSize: '18px'}}
+                        value={cardInformation.cardName}
+                        onChange={(e) => handleFieldChangeAdd('cardName', e.target.value)}
+                        required
+                    />
+                </div>
+                <div class="formInfoIndividual">
+                    <label htmlFor="set">Set </label>
+                    <input
+                        id="newSetInput"
+                        type="text"
+                        size="10"
+                        style={{marginLeft: '5px', fontSize: '18px'}}
+                        value={cardInformation.set}
+                        onChange={(e) => handleFieldChangeAdd('set', e.target.value)}
+                        required
+                    />
+                </div>
+                <div class="formInfoIndividual">
+                    <label htmlFor="collectionNumber">Collection Number </label>
+                    <input
+                        id="newCollectionNumberInput"
+                        type="text"
+                        size="10"
+                        style={{marginLeft: '5px', fontSize: '18px'}}
+                        value={cardInformation.collectionNumber}
+                        onChange={(e) => handleFieldChangeAdd('collectionNumber', e.target.value)}
+                        required
+                    />
+                </div>
+                <div class="formInfoIndividual">
+                    <label htmlFor="cardImage">Image URL </label>
+                    <input
+                        id="newImageInput"
+                        type="text"
+                        size="40"
+                        style={{marginLeft: '5px', fontSize: '18px'}}
+                        value={cardInformation.cardImage}
+                        onChange={(e) => handleFieldChangeAdd('cardImage', e.target.value)}
+                        required
+                    />
+                </div>
+                <button id="addCardButton" onClick={() => {cardAdd();}}>Add Card to Database</button>
+            </div>
+            <div id="previewContainer">
+                <></>
             </div>
         </div>
     );
 
     const aboutView = (
         <div>
-            <p>About View</p>
+            <button id="backToCollection" onClick={() => {setViewCollection(true); getAllCards();}}>Back to Collection</button>
+            <div id="aboutGeneral">
+                <h1 id="aboutTitle">SE/Com S 319 Construction of User Interfaces<br></br>Fall 2023</h1>
+                <h2 id="aboutDate">December 3rd, 2023</h2>
+            </div>
+            <span id="allPeople">
+                <div class="aboutInfo" id="ArenInfo">
+                    <p class="personName">Aren Ashlock</p>
+                    <p>Email: aashlock@iastate.edu</p>
+                </div>
+                <div class="aboutInfo" id="EliInfo">
+                    <p class="personName">Eli Newland</p>
+                    <p>Email: newland2@iastate.edu</p>
+                </div>
+                <div class="aboutInfo" id="AldacoInfo">
+                    <p class="personName">Dr. Abraham N. Aldaco Gastelum</p>
+                    <p>Email: aaldaco@iastate.edu</p>
+                </div>
+            </span>
         </div>
     );
 
@@ -353,27 +387,29 @@ const FinalProject = () => {
 
     return (
         <div>
-            {viewCollection ? (
-                window.onload = function () {
-                    getAllCards();
-                    
-                },
-                <div>
-                    {topBar}
-                    {collectionViewBar}
-                    {collectionView}
-                </div>
-             ) :
-             addCard ? (
-                <div>
-                    {topBar}
-                    {addCardViewBar}
-                    {addCardView}
-                </div>
-             ) :
-             (
-                aboutView
-             )}
+            {
+                viewCollection ? (
+                    window.onload = function () {
+                        getAllCards();
+                        
+                    },
+                    <div>
+                        {topBar}
+                        {collectionViewBar}
+                        <div>
+                            {collectionView}
+                        </div>
+                    </div>
+                ) : addCard ? (
+                    <div>
+                        {topBar}
+                        {addCardViewBar}
+                        {addCardView}
+                    </div>
+                ) : (
+                    aboutView
+                )
+            }
         </div>
     );
 };

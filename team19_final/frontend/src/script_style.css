@@ -25,7 +25,7 @@
     border-color: black;
 }
 
-.topScreen {
+.topScreenClass {
     font-size: 18px;
 
     margin-top: 40px;
@@ -115,7 +115,6 @@
 #formInfo {
     float: left;
     font-size: 18px;
-    margin-top: 10px;
 }
 
 .formInfoIndividual {
@@ -132,4 +131,58 @@
 
 #previewContainer {
     text-align: center;
+}
+
+/* -------------------- About The Team Styles -------------------- */
+
+#backToCollection {
+    font-size: 18px;
+
+    margin: 10px;
+    margin-top: 5px;
+
+    border-radius: 5px;
+    border-color: black;
+}
+
+#aboutGeneral {
+    width: 700px;
+    margin: auto;
+    margin-bottom: 10px;
+    
+    padding: 5px;
+    text-align: center;
+
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+}
+
+#aboutTitle {
+    font-size: 25px;
+}
+
+#aboutDate {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+#allPeople {
+    width: 100px;
+    margin: auto;
+}
+
+.aboutInfo {
+    width: 32%;
+    float: inline-start;
+    margin-left: 10px;
+    text-align: center;
+
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+}
+
+.personName {
+    font-weight: bold;
 }
