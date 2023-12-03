@@ -268,7 +268,7 @@ const FinalProject = () => {
 
     const topBar = (
         <div id="header">
-            <button id="switchToAbout" onClick={() => {setViewCollection(false); setAddCard(false);}}>About the Team</button>
+            <button id="switchToAbout" onClick={() => {setViewCollection(false); setAddCard(false); resetCardInformation(); setCardSearch('');}}>About the Team</button>
             <h1 id="publicationNote">Developed by Aren Ashlock and Eli Newland (Fall 2023)</h1>
         </div>
     );
@@ -361,7 +361,25 @@ const FinalProject = () => {
 
     const aboutView = (
         <div>
-            <p>About View</p>
+            <button id="backToCollection" onClick={() => {setViewCollection(true); getAllCards();}}>Back to Collection</button>
+            <div id="aboutGeneral">
+                <h1 id="aboutTitle">SE/Com S 319 Construction of User Interfaces<br></br>Fall 2023</h1>
+                <h2 id="aboutDate">December 3rd, 2023</h2>
+            </div>
+            <span id="allPeople">
+                <div class="aboutInfo" id="ArenInfo">
+                    <p class="personName">Aren Ashlock</p>
+                    <p>Email: aashlock@iastate.edu</p>
+                </div>
+                <div class="aboutInfo" id="EliInfo">
+                    <p class="personName">Eli Newland</p>
+                    <p>Email: newland2@iastate.edu</p>
+                </div>
+                <div class="aboutInfo" id="AldacoInfo">
+                    <p class="personName">Dr. Abraham N. Aldaco Gastelum</p>
+                    <p>Email: aaldaco@iastate.edu</p>
+                </div>
+            </span>
         </div>
     );
 
