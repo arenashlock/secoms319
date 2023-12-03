@@ -25,7 +25,7 @@
     border-color: black;
 }
 
-.topScreen {
+.topScreenClass {
     font-size: 18px;
 
     margin-top: 40px;
@@ -115,7 +115,6 @@
 #formInfo {
     float: left;
     font-size: 18px;
-    margin-top: 10px;
 }
 
 .formInfoIndividual {
