@@ -310,11 +310,11 @@ const FinalProject = () => {
         reloadWithSearch();
     }
 
-    const cardDelete = (card) => {
+    const cardDelete = async (card) => {
         let deleteConfirmation = "You are about to delete the following card from your collection:\n\n" + card.cardName + " (" + card.cardID + ")";
         
         if(window.confirm(deleteConfirmation) == true) {
-            fetch('http://localhost:8081/deleteCard', {
+            await fetch('http://localhost:8081/deleteCard', {
                 method: "DELETE",
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({"cardID": card.cardID})
@@ -323,8 +323,7 @@ const FinalProject = () => {
                 .then(deletedCard => {console.log(deletedCard)})
                 .catch((err) => console.log("Error: " + err));
             
-            window.location.reload();
-            console.log("Reload the window after deleting a card");
+            reloadWithSearch();
         }
     }
 
