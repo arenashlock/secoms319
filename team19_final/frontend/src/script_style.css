@@ -92,18 +92,10 @@
     margin: 5px;
 }
 
-#editCard {
-    background-color: lightblue;
-    border-radius: 5px;
-    border-color: black;
-}
-
 #deleteCard {
     background-color: lightcoral;
     border-radius: 5px;
     border-color: black;
-
-    margin-left: 5px;
 }
 
 /* -------------------- Add Card Screen Styles -------------------- */

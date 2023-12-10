@@ -89,28 +89,48 @@ app.post("/addCard", async (req, res) => {
         PUT REQUEST
    ---------------------------------------- */
 
-app.put("/updateCard/:id", async (req, res) => {
-    try {
-        await client.connect();
-        console.log("Request: /updateCard/:id");
+app.put("/increaseCard", async (req, res) => {
+    await client.connect();
+    console.log("Request: /increaseCard");
         
-        const cardId = Number(req.params.id); // or use req.params.id directly if IDs are stored as strings
-        const updatedData = req.body; // Data sent in the body of the PUT request
+    const values = Object.values(req.body);
+    const updateCardID = values[0]; // cardID
+    const updateCardQuantity = values[1] + 1; //card quantity
+    console.log("Card to update: ", updateCardID);
+
+    const queryID = {"cardID": updateCardID};
+    const queryChange = {"quantity": updateCardQuantity};
+    const results = await db.collection("cards").updateOne(queryID, {"$set": queryChange});
+
+    console.log(results);
+
+    res.status(200);
+    res.send(results);
+});
+
+app.put("/decreaseCard", async (req, res) => {
+    await client.connect();
+    console.log("Request: /decreaseCard");
         
-        const result = await db.collection("cards").updateOne(
-            { id: cardId },
-            { $set: updatedData }
-        );
-        
-        if (result.matchedCount === 0) {
-            return res.status(404).send("No card with the specified ID found");
-        }
-        
-        res.status(200).send(result);
-    } catch (error) {
-        console.error("Error occurred in PUT: ", error);
-        res.status(500).send("Error occurred while updating a card");
+    const values = Object.values(req.body);
+    const updateCardID = values[0]; // cardID
+    let updateCardQuantity = values[1]; //card quantity
+    if(updateCardQuantity > 0) {
+        updateCardQuantity--; //new card quantity
     }
+    else {
+        updateCardQuantity = 0;  //new card quantity (avoiding negative numbers)
+    }
+    console.log("Card to update: ", updateCardID);
+
+    const queryID = {"cardID": updateCardID};
+    const queryChange = {"quantity": updateCardQuantity};
+    const results = await db.collection("cards").updateOne(queryID, {"$set": queryChange});
+
+    console.log(results);
+
+    res.status(200);
+    res.send(results);
 });
 
 /* ----------------------------------------

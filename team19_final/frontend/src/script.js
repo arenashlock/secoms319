@@ -22,18 +22,14 @@ const FinalProject = () => {
     // ------------------------------------------------------------------------------------
 
     // ---------------------------- COLLECTION VIEW FUNCTIONS -----------------------------
-    
-    const searchCard = (name) => {
-        setCardSearch(name.target.value);
 
-        if(name.target.value === "") {
+    useEffect(() => {
+        if(cardSearch === "") {
             getAllCards();
         }
 
         else {
-            console.log("Search: " + name.target.value);
-
-            fetch('http://localhost:8081/' + name.target.value)
+            fetch('http://localhost:8081/' + cardSearch)
                 .then(response => response.json())
                 .then(cards => {
                     if(cards.length !== 0){
@@ -62,6 +58,7 @@ const FinalProject = () => {
 
                                     let decreaseCard = document.createElement("button");
                                         decreaseCard.className = "changeQuantity";
+                                        decreaseCard.addEventListener('click', () => {decreaseCardFunction(cards[i])});
                                         decreaseCard.innerText = "-";
                                     quantityOfCard.appendChild(decreaseCard);
 
@@ -71,6 +68,7 @@ const FinalProject = () => {
 
                                     let increaseCard = document.createElement("button");
                                         increaseCard.className = "changeQuantity";
+                                        increaseCard.addEventListener('click', () => {increaseCardFunction(cards[i])});
                                         increaseCard.innerText = "+";
                                     quantityOfCard.appendChild(increaseCard);
 
@@ -89,10 +87,92 @@ const FinalProject = () => {
                                 let udCard = document.createElement("div");
                                     udCard.className = "udCard";
 
-                                    let editCard = document.createElement("button");
-                                        editCard.id = "editCard";
-                                        editCard.innerText = "EDIT";
-                                    udCard.appendChild(editCard);
+                                    let deleteCard = document.createElement("button");
+                                        deleteCard.id = "deleteCard";
+                                        deleteCard.addEventListener('click', () => {cardDelete(cards[i])});
+                                        deleteCard.innerText = "DELETE";
+                                    udCard.appendChild(deleteCard);
+
+                                eachCard.appendChild(udCard);
+                                
+                            container.appendChild(eachCard);
+                        }
+                    }
+
+                    else {
+                        // Set the container to be empty
+                        var container = document.getElementById("collectionViewCards");
+                        container.innerHTML = "";
+                    }
+                })
+        }
+    }, [cardSearch]);
+
+    const reloadWithSearch = () => {
+        if(cardSearch === "") {
+            getAllCards();
+        }
+
+        else {
+            console.log("Search: " + cardSearch);
+
+            fetch('http://localhost:8081/' + cardSearch)
+                .then(response => response.json())
+                .then(cards => {
+                    if(cards.length !== 0){
+                        console.log(cards);
+
+                        // Get the container that will hold all the cards
+                        var container = document.getElementById("collectionViewCards");
+                        container.innerHTML = `<div class="row">`;
+                        
+                        // Populate each card
+                        for(let i = 0; i < cards.length; i++) {
+                            let eachCard = document.createElement("div");
+                            eachCard.className = "individualCard";
+                                let cardImage = document.createElement("img");
+                                    cardImage.className = "cardImage";
+                                    cardImage.src = cards[i].cardImage;
+                                eachCard.appendChild(cardImage);
+
+                                let cardName = document.createElement("h1");
+                                    cardName.className = "cardName";
+                                    cardName.innerText = cards[i].cardName;
+                                eachCard.appendChild(cardName);
+
+                                let quantityOfCard = document.createElement("div");
+                                    quantityOfCard.className = "quantityOfCard";
+
+                                    let decreaseCard = document.createElement("button");
+                                        decreaseCard.className = "changeQuantity";
+                                        decreaseCard.addEventListener('click', () => {decreaseCardFunction(cards[i])});
+                                        decreaseCard.innerText = "-";
+                                    quantityOfCard.appendChild(decreaseCard);
+
+                                    let quantity = document.createElement("output");
+                                        quantity.innerText = ` ${cards[i].quantity} `;
+                                    quantityOfCard.appendChild(quantity);
+
+                                    let increaseCard = document.createElement("button");
+                                        increaseCard.className = "changeQuantity";
+                                        increaseCard.addEventListener('click', () => {increaseCardFunction(cards[i])});
+                                        increaseCard.innerText = "+";
+                                    quantityOfCard.appendChild(increaseCard);
+
+                                eachCard.appendChild(quantityOfCard);
+
+                                let set = document.createElement("h2");
+                                    set.className = "cardInfo";
+                                    set.innerText = `Set: ${cards[i].set}`;
+                                eachCard.appendChild(set);
+
+                                let collectionNumber = document.createElement("h2");
+                                    collectionNumber.className = "cardInfo";
+                                    collectionNumber.innerText = `Collection Number: ${cards[i].collectionNumber}`;
+                                eachCard.appendChild(collectionNumber);
+
+                                let udCard = document.createElement("div");
+                                    udCard.className = "udCard";
 
                                     let deleteCard = document.createElement("button");
                                         deleteCard.id = "deleteCard";
@@ -144,6 +224,7 @@ const FinalProject = () => {
 
                             let decreaseCard = document.createElement("button");
                                 decreaseCard.className = "changeQuantity";
+                                decreaseCard.addEventListener('click', () => {decreaseCardFunction(cards[i])});
                                 decreaseCard.innerText = "-";
                             quantityOfCard.appendChild(decreaseCard);
 
@@ -153,6 +234,7 @@ const FinalProject = () => {
 
                             let increaseCard = document.createElement("button");
                                 increaseCard.className = "changeQuantity";
+                                increaseCard.addEventListener('click', () => {increaseCardFunction(cards[i])});
                                 increaseCard.innerText = "+";
                             quantityOfCard.appendChild(increaseCard);
 
@@ -171,11 +253,6 @@ const FinalProject = () => {
                         let udCard = document.createElement("div");
                             udCard.className = "udCard";
 
-                            let editCard = document.createElement("button");
-                                editCard.id = "editCard";
-                                editCard.innerText = "EDIT";
-                            udCard.appendChild(editCard);
-
                             let deleteCard = document.createElement("button");
                                 deleteCard.id = "deleteCard"
                                 deleteCard.addEventListener('click', () => {cardDelete(cards[i])});
@@ -187,6 +264,50 @@ const FinalProject = () => {
                     container.appendChild(eachCard);
                 }
             })
+    }
+
+    const increaseCardFunction = async (card) => {
+        const updateData = {
+            "cardID": card.cardID,
+            "quantity": card.quantity
+        };
+
+        console.log(cardSearch)
+
+        console.log(updateData)
+
+        await fetch('http://localhost:8081/increaseCard', {
+            method: "PUT",
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(updateData)
+        })
+            .then(response => {response.json()})
+            .then(increasedCard => {console.log(increasedCard)})
+            .catch((err) => console.log("Error: " + err));
+
+            console.log(cardSearch)
+            
+        reloadWithSearch();
+    }
+
+    const decreaseCardFunction = async (card) => {
+        const updateData = {
+            "cardID": card.cardID,
+            "quantity": card.quantity
+        };
+
+        console.log(updateData)
+
+        await fetch('http://localhost:8081/decreaseCard', {
+            method: "PUT",
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(updateData)
+        })
+            .then(response => {response.json()})
+            .then(increasedCard => {console.log(increasedCard)})
+            .catch((err) => console.log("Error: " + err));
+            
+        reloadWithSearch();
     }
 
     const cardDelete = (card) => {
@@ -308,13 +429,13 @@ const FinalProject = () => {
     
     const collectionViewBar = (
         <div>
-            <input class="topScreenClass" id="cardSearch" type="search" placeholder="Search for a card..." value={cardSearch} onChange={searchCard} />
-            <button class="topScreenClass" id="increaseCollectionCount" onClick={() => {setViewCollection(false); setAddCard(true); setCardSearch('');}}>Card +</button>
+            <input class="topScreenClass" id="cardSearch" type="search" placeholder="Search for a card..." value={cardSearch} onChange={e => setCardSearch(e.target.value)} />
+            <button class="topScreenClass" id="increaseCollectionCount" onClick={() => {setViewCollection(false); setAddCard(true);}}>Card +</button>
         </div>
     );
 
     const addCardViewBar = (
-        <button class="topScreenClass" id="cancelAddCard" onClick={() => {setViewCollection(true); setAddCard(false); resetCardInformation(); getAllCards();}}>Cancel</button>
+        <button class="topScreenClass" id="cancelAddCard" onClick={() => {setViewCollection(true); setAddCard(false); resetCardInformation();  setCardSearch(''); getAllCards();}}>Cancel</button>
     );
 
     // ------------------------------------------------------------------------------------
