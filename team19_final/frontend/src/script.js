@@ -519,7 +519,7 @@ const FinalProject = () => {
             <button id="backToCollection" onClick={() => {setViewCollection(true); getAllCards();}}>Back to Collection</button>
             <div id="aboutGeneral">
                 <h1 id="aboutTitle">SE/Com S 319 Construction of User Interfaces<br></br>Fall 2023</h1>
-                <h2 id="aboutDate">December 3rd, 2023</h2>
+                <h2 id="aboutDate">December 11th, 2023</h2>
             </div>
             <span id="allPeople">
                 <div class="aboutInfo" id="ArenInfo">

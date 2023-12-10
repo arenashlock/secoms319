@@ -349,7 +349,25 @@ async function deleteOneProduct() {
 const ABOUT = () => {
   return (
     <div>
-      <p>ABOUT PAGE</p>
+      <div id="aboutGeneral">
+        <h1 id="aboutTitle">SE/Com S 319 Construction of User Interfaces<br></br>Fall 2023</h1>
+        <h2 id="aboutDate">December 10th, 2023</h2>
+      </div>
+      <p id="aboutParagraph">This webpage is Aren and Eli's work for Assignment 3 in the SE/Com S 319 class.<br></br>The goal of this assignment is to use CRUD funcitonality to interact with a MongoDB database.<br></br>Additionally, this is our first attempt at implementing a navigation bar with Routing and a SINGLE webpage.<br></br>This datbase consists of items from the "Fakestore Database" which holds a variety of consumer items in multiple categories.<br></br>We can see all those items, create a new item, delete an item, and modify any field of each item!</p>
+      <span id="allPeople">
+        <div class="aboutInfo" id="ArenInfo">
+          <p class="personName">Aren Ashlock</p>
+          <p>Email: aashlock@iastate.edu</p>
+        </div>
+        <div class="aboutInfo" id="EliInfo">
+          <p class="personName">Eli Newland</p>
+          <p>Email: newland2@iastate.edu</p>
+        </div>
+        <div class="aboutInfo" id="AldacoInfo">
+          <p class="personName">Dr. Abraham N. Aldaco Gastelum</p>
+          <p>Email: aaldaco@iastate.edu</p>
+        </div>
+      </span>
     </div>
   );
 }
