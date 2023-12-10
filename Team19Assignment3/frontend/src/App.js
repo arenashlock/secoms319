@@ -564,7 +564,7 @@ async function deleteOneProduct() {
     await fetch('http://localhost:8081/delete_product', {
       method: "DELETE",
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({"title": products[index].title})
+      body: JSON.stringify({"_id": products[index]._id})
     })
       .then(response => {response.json()})
       .then(deletedProduct => {console.log(deletedProduct)})

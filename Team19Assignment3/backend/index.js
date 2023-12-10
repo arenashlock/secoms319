@@ -121,12 +121,12 @@ app.put("/change_product", async (req, res) => {
     await client.connect();
     console.log("Request: /delete_product");
     
-    const values = Object.values(req.body);
-    const deleteTitle = values[0]; // Delete title
+    const deleteProduct = req.body; // Data sent in the body of the POST request
+    const deleteID = deleteProduct._id;
 
-    console.log(deleteTitle)
+    console.log(deleteID)
 
-    const query = {title: deleteTitle};
+    const query = {_id: new ObjectId(deleteID)};
     const result = await db.collection("fakestore_catalog").deleteOne(query);
     console.log("DELETE Item: ", result);
     
