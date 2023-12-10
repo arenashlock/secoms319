@@ -178,7 +178,7 @@ const FinalProject = () => {
 
                             let deleteCard = document.createElement("button");
                                 deleteCard.id = "deleteCard"
-                                deleteCard.addEventListener('click', () => {cardDelete(cards[i])});;
+                                deleteCard.addEventListener('click', () => {cardDelete(cards[i])});
                                 deleteCard.innerText = "DELETE";
                             udCard.appendChild(deleteCard);
 
@@ -233,7 +233,6 @@ const FinalProject = () => {
     // ----------------------------- ADD CARD VIEW FUNCTIONS ------------------------------
     
     const cardAdd = () => {
-        // FINISH
         const newCardJSON = JSON.stringify({
             "cardID": cardInformation.set + "-" + cardInformation.collectionNumber,
             "cardName": cardInformation.cardName,
@@ -260,6 +259,36 @@ const FinalProject = () => {
                 setAddCard(false);
                 getAllCards();
             })
+    }
+
+    const previewCard = () => {
+        if(cardInformation.cardImage !== '') {
+            let cardImage = document.getElementById("previewCardImage");
+            cardImage.src = cardInformation.cardImage;
+        }
+
+        if(cardInformation.cardName !== '') {
+            let cardName = document.getElementById("previewCardName");
+            cardName.innerText = cardInformation.cardName;
+        }
+
+        if(cardInformation.set !== '') {
+            let set = document.getElementById("previewSet");
+            set.innerText = `Set: ${cardInformation.set}`;
+        }
+
+        if(cardInformation.collectionNumber !== '') {
+            let collectionNumber = document.getElementById("previewCollectionNumber");
+            collectionNumber.innerText = `Collection Number: ${cardInformation.collectionNumber}`;
+        }
+
+        if( cardInformation.cardImage !== '' &&
+            cardInformation.cardName !== '' &&
+            cardInformation.set !== '' &&
+            cardInformation.collectionNumber !== '') {
+            let addButton = document.getElementById("addCardButton");
+            addButton.addEventListener('click', () => {cardAdd()});
+        }
     }
 
     // ------------------------------------------------------------------------------------
@@ -351,10 +380,16 @@ const FinalProject = () => {
                         required
                     />
                 </div>
-                <button id="addCardButton" onClick={() => {cardAdd();}}>Add Card to Database</button>
+                <button id="previewCardButton" onClick={() => {previewCard();}}>Preview Card</button>
             </div>
             <div id="previewContainer">
-                <></>
+                <div class="individualCard">
+                    <img id="previewCardImage" class="cardImage" src="https://images.pokemoncard.io/images/assets/CardBack.jpg"></img>
+                    <h1 id="previewCardName" class="cardName">Card Name</h1>
+                    <h2 id="previewSet" class="cardInfo">Set: N/A</h2>
+                    <h2 id="previewCollectionNumber" class="cardInfo">Collection Number: N/A</h2>
+                </div>
+                <button id="addCardButton">Add Card to Collection</button>
             </div>
         </div>
     );

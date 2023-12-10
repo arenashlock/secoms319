@@ -121,7 +121,7 @@
     margin-bottom: 10px;
 }
 
-#addCardButton {
+#previewCardButton {
     font-size: 18px;
 
     background-color: white;
@@ -129,8 +129,18 @@
     border-color: black;
 }
 
+#addCardButton {
+    font-size: 18px;
+    margin-left: 10px;
+
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+}
+
 #previewContainer {
-    text-align: center;
+    float: left;
+    width: 320px;
 }
 
 /* -------------------- About The Team Styles -------------------- */
