@@ -1,0 +1,166 @@
+/* ---------- NAVIGATION BAR ---------- */
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+#navBar {
+    text-align: center;
+}
+
+.navButton {
+    font-size: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: white;
+}
+
+/* ---------- POST PAGE ---------- */
+
+.formInfoIndividual {
+    margin: 10px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+input {
+    padding-left: 5px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#statePrice {
+    width: 75px;
+}
+
+#stateRate {
+    width: 50px;
+}
+
+#stateCount {
+    width: 75px;
+}
+
+/* ---------- GET PAGE ---------- */
+
+#getProductsContainer {
+    margin-top: 10px;
+}
+
+.individualProduct {
+    float: left;
+    margin: 10px;
+
+    background-color: #F0F0F0;
+    padding: 10px;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+.productTitle {
+    width: 28vw;
+    font-size: 24px;
+    text-align: center;
+}
+
+.productImage {
+    width: 28vw;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+.productCategory {
+    width: 28vw;
+    font-size: 17px;
+}
+
+.productDescription {
+    width: 28vw;
+    font-size: 15px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.productPrice {
+    display: inline;
+    max-width: 14vw;
+    font-size: 15px;
+}
+
+.productRating {
+    float: right;
+    margin-left: 10px;
+
+    max-width: 14vw;
+    font-size: 15px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* ---------- PUT PAGE ---------- */
+
+/* ---------- DELETE PAGE ---------- */
+
+#productDetails {
+    width: max-content;
+    margin: 10px;
+    margin-top: 20px;
+
+    background-color: #F0F0F0;
+    padding: 10px;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+#showButtonDiv {
+    margin: 15px;
+}
+
+.showButton {
+    font-size: 18px;
+    background-color: lightblue;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.indexButton {
+    margin: 5px;
+    font-size: 18px;
+    background-color: E0E0E0;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.deleteButton {
+    margin: 5px;
+    font-size: 18px;
+    background-color: coral;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#deleteButtons {
+    margin: 10px;
+}
+
+#productDetails, #deleteButtons {
+    width: fit-content;
+}
+
+/* ---------- ABOUT PAGE ---------- */
