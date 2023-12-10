@@ -171,7 +171,7 @@ const GET = () => {
       // Get the container that will hold all the products
       var productsContainer = document.getElementById("getProductsContainer");
             
-      // Populate each card
+      // Populate each product
       for(let i = 0; i < fakestore_catalog.length; i++) {
         let individualProduct = document.createElement("div");
         individualProduct.className = "individualProduct";
@@ -334,7 +334,6 @@ const PUT = () => {
   }
 
   async function updateOneProduct() {
-    // FINISH!!!
     if(productInformation.stateTitle !== '' &&
        productInformation.statePrice !== null &&
        productInformation.stateDescription !== '' &&
