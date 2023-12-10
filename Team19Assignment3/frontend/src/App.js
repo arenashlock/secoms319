@@ -221,11 +221,267 @@ const GET = () => {
 }
 
 const PUT = () => {
+  const [products, setProducts] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [productInformation, setProductInformation] = useState({
+    stateTitle: '',
+    statePrice: 0,
+    stateDescription: '',
+    stateCategory: '',
+    stateImage: 'http://localhost:8081/images/',
+    stateRate: 0,
+    stateCount: 0,
+  });
+
+  function handleFieldChangeUpdate(field, value) {
+    setProductInformation({
+      ...productInformation,
+      [field]: value
+    });
+  }
+
+  useEffect(() => {
+    productsForUpdate();
+    if(products.length > 0) {
+      populateProduct();
+    }
+  }, []);
+
+  useEffect(() => {
+    if(products.length > 0) {
+      populateProduct();
+    }
+  }, [index]);
+
+  function hideUpdateForm() {
+    if(products.length > 0) {
+      let updateFormInfo = document.getElementById("updateFormInfo");
+      updateFormInfo.hidden = true;
+    }
+  }
+
+  function hideShowButton() {
+    if(products.length > 0) {
+      let showButtonDiv = document.getElementById("showButtonDiv");
+      showButtonDiv.hidden = true;
+      populateProduct();
+    }
+  }
+
+  async function productsForUpdate() {
+    await fetch('http://localhost:8081/fakestore_catalog')
+    .then(response => response.json())
+    .then(fakestore_catalog => {
+      console.log(fakestore_catalog);
+      setProducts(fakestore_catalog);
+    });
+  }
+
+  function populateProduct() {
+    let productDetails = document.getElementById("productDetails");
+    productDetails.removeAttribute("hidden");
+
+    let deleteTitle = document.getElementById("selectTitle");
+    deleteTitle.innerText = products[index].title;
+
+    let deleteImage = document.getElementById("selectImage");
+    deleteImage.src = products[index].image;
+
+    let deleteCategory = document.getElementById("selectCategory");
+    deleteCategory.innerText = `Category: ${products[index].category}`;
+
+    let deleteDescription = document.getElementById("selectDescription");
+    deleteDescription.innerText = products[index].description;
+
+    let deletePrice = document.getElementById("selectPrice");
+    deletePrice.innerText = `Price: $${products[index].price}`;
+
+    let deleteRating = document.getElementById("selectRating");
+    deleteRating.innerText = `Rating: ${products[index].rating.rate}/5.0 (${products[index].rating.count})`
+  }
+
+  function getNextForUpdate() {
+    if (products.length > 0) {
+      if (index === products.length - 1) setIndex(0);
+      else setIndex(index + 1);
+    }
+  }
+      
+  function getPreviousForUpdate() {
+    if (products.length > 0) {
+      if (index === 0) setIndex(products.length - 1);
+      else setIndex(index - 1);
+    }
+  }
+
+  useEffect(() => {
+    if(products.length > 0) {
+      let updateFormInfo = document.getElementById("updateFormInfo");
+      updateFormInfo.hidden = false;
+    }
+  }, [productInformation]);
+
+  function selectOneProduct() {
+    setProductInformation({
+      'stateTitle': products[index].title,
+      'statePrice': products[index].price,
+      'stateDescription': products[index].description,
+      'stateCategory': products[index].category,
+      'stateImage': products[index].image,
+      'stateRate': products[index].rating.rate,
+      'stateCount': products[index].rating.count,
+    });
+  }
+
+  async function updateOneProduct() {
+    // FINISH!!!
+    if(productInformation.stateTitle !== '' &&
+       productInformation.statePrice !== null &&
+       productInformation.stateDescription !== '' &&
+       productInformation.stateCategory !== '' &&
+       productInformation.stateImage !== '' &&
+       productInformation.stateRate !== null &&
+       productInformation.stateCount !== null) {
+
+      const updateProductJSON = JSON.stringify({
+        "_id": products[index]._id,
+        "title": productInformation.stateTitle,
+        "price": productInformation.statePrice,
+        "description": productInformation.stateDescription,
+        "category": productInformation.stateCategory,
+        "image": productInformation.stateImage,
+        "rating":{
+          "rate": productInformation.stateRate,
+          "count": productInformation.stateCount
+        }
+      })
+
+      console.log(updateProductJSON);
+
+      await fetch('http://localhost:8081/change_product', {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: updateProductJSON
+      })
+          .then(response => response.json)
+          .then(product => {
+              console.log(product);
+          })
+
+      window.location.reload();
+    }
+  }
+
   return (
     <div>
-      <p>PUT PAGE</p>
+      <div id="scrollUpdate" class="updateScreen">
+        <div id="productDetails" hidden>
+          <h1 id="selectTitle" class="productTitle"></h1>
+          <img id="selectImage" class="productImage"></img>
+          <h2 id="selectCategory" class="productCategory"></h2>
+          <h2 id="selectDescription" class="productDescription"></h2>
+          <div id="selectPriceAndRating" class="priceAndRating">
+            <h2 id="selectPrice" class="productPrice"></h2>
+            <h2 id="selectRating" class="productRating"></h2>
+          </div>
+          <p></p>
+        </div>
+      <div id="showButtonDiv">
+        <button id="showDeleteProduct" class="showButton" onClick={hideShowButton}>SHOW PRODUCTS</button>
+      </div>
+      <div id="updateButtons">
+        <button id="decreaseIndex" class="indexButton" onClick={getPreviousForUpdate}>Prev</button>
+        <button id="selectProduct" class="selectButton" onClick={selectOneProduct}>SELECT</button>
+        <button id="increaseIndex" class="indexButton" onClick={getNextForUpdate}>Next</button>
+      </div>
     </div>
-  );
+
+    <div id="updateFormInfo" class="updateScreen" hidden>
+      <div class="formInfoIndividual">
+        <label htmlFor="stateTitle">Product Title </label>
+        <input
+          id="stateTitle"
+          type="text"
+          size="40"
+          style={{marginTop: '10px', marginLeft: '5px', fontSize: '18px'}}
+          value={productInformation.stateTitle}
+          onChange={(e) => handleFieldChangeUpdate('stateTitle', e.target.value)}
+          required
+        />
+      </div>
+      <div class="formInfoIndividual">
+        <label htmlFor="statePrice">Price of Product </label>
+        <input
+          id="statePrice"
+          type="number"
+          style={{marginLeft: '5px', fontSize: '18px'}}
+          value={productInformation.statePrice}
+          onChange={(e) => handleFieldChangeUpdate('statePrice', e.target.value)}
+          required
+        />
+      </div>
+      <div class="formInfoIndividual">
+        <label htmlFor="stateDescription">Describe the Product </label>
+        <input
+          id="stateDescription"
+          type="text"
+          size="50"
+          style={{marginLeft: '5px', fontSize: '18px'}}
+          value={productInformation.stateDescription}
+          onChange={(e) => handleFieldChangeUpdate('stateDescription', e.target.value)}
+          required
+        />
+      </div>
+      <div class="formInfoIndividual">
+        <label htmlFor="stateCategory">Product's Category </label>
+        <input
+          id="stateCategory"
+          type="text"
+          size="30"
+          style={{marginLeft: '5px', fontSize: '18px'}}
+          value={productInformation.stateCategory}
+          onChange={(e) => handleFieldChangeUpdate('stateCategory', e.target.value)}
+          required
+        />
+      </div>
+      <div class="formInfoIndividual">
+        <label htmlFor="stateImage">Image (just insert the filename) </label>
+        <input
+          id="stateImage"
+          type="url"
+          size="35"
+          style={{marginLeft: '5px', fontSize: '18px'}}
+          value={productInformation.stateImage}
+          onChange={(e) => handleFieldChangeUpdate('stateImage', e.target.value)}
+          required
+        />
+      </div>
+      <div class="formInfoIndividual">
+        <label htmlFor="stateRate">Product's Rating </label>
+        <input
+          id="stateRate"
+          type="number"
+          value={productInformation.stateRate}
+          onChange={(e) => handleFieldChangeUpdate('stateRate', e.target.value)}
+          required
+        />
+      </div>
+      <div class="formInfoIndividual">
+        <label htmlFor="stateCount">Number of Ratings </label>
+        <input
+          id="stateCount"
+          type="number"
+          style={{marginLeft: '5px', fontSize: '18px'}}
+          value={productInformation.stateCount}
+          onChange={(e) => handleFieldChangeUpdate('stateCount', e.target.value)}
+          required
+        />
+      </div>
+      <button id="updateButton" onClick={() => {updateOneProduct(); hideUpdateForm();}}>Update Product</button>
+    </div>
+  </div>);
 }
 
 const DELETE = () => {

@@ -106,6 +106,39 @@ input {
 
 /* ---------- PUT PAGE ---------- */
 
+.updateScreen {
+    float: left;
+}
+
+.selectButton {
+    margin: 5px;
+    font-size: 18px;
+    background-color: #FFD7B5;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#updateFormInfo {
+    margin-left: 5px;
+    width: max-content;
+}
+
+#updateButtons {
+    margin: 10px;
+}
+
+#updateButton {
+    margin: 5px;
+    font-size: 18px;
+    background-color: #E0E0E0;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
 /* ---------- DELETE PAGE ---------- */
 
 #productDetails {
@@ -138,7 +171,7 @@ input {
 .indexButton {
     margin: 5px;
     font-size: 18px;
-    background-color: E0E0E0;
+    background-color: #E0E0E0;
 
     border-color: black;
     border-style: solid;

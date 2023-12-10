@@ -1,6 +1,6 @@
 var express = require("express");
 var cors = require("cors");
-var mongo = require("mongodb");
+var ObjectId = require('mongodb').ObjectId;
 var app = express();
 var fs = require("fs");
 var bodyParser = require("body-parser");
@@ -77,6 +77,40 @@ app.get("/fakestore_catalog", async (req, res) => {
     
     res.status(200);
     res.send(results);
+});
+
+/* ----------------------------------------
+        PUT ON ONE REQUEST
+   ---------------------------------------- */
+
+app.put("/change_product", async (req, res) => {
+    await client.connect();
+    console.log("Request: /change_product");
+        
+    const updateProduct = req.body; // Data sent in the body of the POST request
+    const updateID = updateProduct._id;
+    const query = {
+        title: updateProduct.title,
+        price: Number(updateProduct.price),
+        description: updateProduct.description,
+        category: updateProduct.category,
+        image: updateProduct.image,
+        rating: {
+            rate: Number(updateProduct.rating.rate),
+            count: Number(updateProduct.rating.count)
+        }
+    }
+    const result = await db.collection("fakestore_catalog").updateOne({_id: new ObjectId(updateID)}, {"$set": query});
+
+    console.log(result);
+        
+    if(!result) {
+        res.send("Product was not updated").status(404);
+    }
+            
+    else {
+        res.status(201).send(result);
+    }
 });
 
 /* ----------------------------------------
